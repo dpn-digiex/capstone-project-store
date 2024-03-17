@@ -1,0 +1,2 @@
+- Remove unused code
+- Config eslint prettier git

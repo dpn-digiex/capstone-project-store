@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import './card.style.css'
+import './index.style.css'
 
 const Card = ({ image, name, currentPrice, originPrice, discount, message }) => {
   return (

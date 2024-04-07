@@ -7,11 +7,11 @@ const ButtonLink = ({ href = '', children, customStyle, isSelected = false }) =>
   return (
     <Link
       href={href}
-      className={clsx('cursor-pointer hover:bg-[#2d2d2d]', {
-        ['bg-[#545454]']: isSelected
+      className={clsx('cursor-pointer hover:bg-[#2d2d2d] min-w-25 max-w-[200px]', {
+        ['bg-grayLight']: isSelected
       })}
     >
-      <div className={clsx('flex px-6 min-w-25 h-15 justify-center items-center', customStyle)}>
+      <div className={clsx('flex px-6 h-15 justify-center items-center', customStyle)}>
         <div className='whitespace-nowrap overflow-hidden text-ellipsis text-sm'>{children}</div>
       </div>
     </Link>

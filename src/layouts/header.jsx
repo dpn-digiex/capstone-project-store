@@ -43,10 +43,12 @@ const Header = () => {
   const pathname = usePathname()
 
   return (
-    <header className='sticky top-0 z-[1000] w-full h-15 overflow-hidden bg-[#101010] flex items-center justify-center'>
-      <div className='max-w-[1400px] h-full flex items-center justify-between mx-4'>
+    <header className='sticky top-0 z-[1000] w-full h-15  bg-bgBlack'>
+      <div className='container h-full flex items-center justify-between '>
         <div className='mr-12'>
-          <ButtonLink href='/'>LOGO_STORE</ButtonLink>
+          <ButtonLink href='/' customStyle='justify-start px-0'>
+            LOGO_STORE
+          </ButtonLink>
         </div>
         <div className='flex items-center'>
           {Object.keys(MENU_HEADER).map((key, index) => {

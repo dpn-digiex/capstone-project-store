@@ -38,22 +38,52 @@ module.exports = {
         25: '6.25rem' // 100px
       },
       colors: {
-        customGray: '#ccc'
+        bgBlack: '#101010',
+        bgGray: '#323232',
+        grayLight: '#545454'
       },
       borderWidth: {},
       borderRadius: {},
       fontSize: {
-        'xs-medium': [
-          '12px',
+        xs: [
+          '13px',
           {
             fontStyle: 'normal',
-            fontWeight: 500,
-            lineHeight: '18px'
+            fontWeight: 300
+          }
+        ],
+        sm: [
+          '14px',
+          {
+            fontStyle: 'normal',
+            fontWeight: 400
+          }
+        ],
+        md: [
+          '15px',
+          {
+            fontStyle: 'normal',
+            fontWeight: 500
+          }
+        ],
+        lg: [
+          '20px',
+          {
+            fontStyle: 'normal',
+            fontWeight: 500
           }
         ]
-        // ........more
       },
-      boxShadow: {}
+      boxShadow: {},
+      container: {
+        center: true,
+        screens: {
+          sm: '100%',
+          md: '100%',
+          lg: '1200px',
+          xl: '1200px'
+        }
+      }
     }
   },
   plugins: []

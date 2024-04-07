@@ -33,7 +33,7 @@ html {
 
 body {
   min-width: 320px;
-  min-height: 150vh;
+  min-height: 100vh;
   overflow-x: hidden;
   font-family: 'NotoSans', sans-serif;
   background-color: #3e3e3f;

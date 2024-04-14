@@ -5,9 +5,9 @@ import Header from '@/layouts/header'
 
 const StoreLayout = ({ children }) => {
   return (
-    <div className='w-screen h-screen'>
+    <div className='w-full h-screen'>
       <Header />
-      <section className='container min-h-[50vh]'>{children}</section>
+      <section className='min-h-[50vh]'>{children}</section>
       <Footer />
     </div>
   )

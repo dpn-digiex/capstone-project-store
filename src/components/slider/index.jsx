@@ -1,10 +1,13 @@
 'use client'
 import React, { Children } from 'react'
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
+
+import SliderButton from '../slider-button'
 
 const Slider = ({ renderSize = 4, children }) => {
   return (
@@ -13,13 +16,14 @@ const Slider = ({ renderSize = 4, children }) => {
       speed={200 * renderSize}
       slidesPerGroup={renderSize}
       slidesPerView={renderSize}
-      className='p-[0.5rem!important]'
-      navigation={true}
+      className='p-[0.5rem!important] relative'
       modules={[Navigation]}
     >
+      <SliderButton type='prev' icon={<FaArrowLeft className='w-4 h-4' />} className='left-0' />
       {Children.map(children, (child) => (
         <SwiperSlide>{child}</SwiperSlide>
       ))}
+      <SliderButton type='next' icon={<FaArrowRight className='w-4 h-4' />} className='right-0' />
     </Swiper>
   )
 }

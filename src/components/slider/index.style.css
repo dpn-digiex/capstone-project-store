@@ -1,0 +1,9 @@
+@tailwind components;
+
+@layer components {
+  .slider-container {
+    --gap: 1.25rem;
+    grid-auto-columns: calc(100% / var(--item-count, 4) - var(--gap, 0));
+    @apply grid grid-flow-col gap-[var(--gap)] transition-transform duration-500;
+  }
+}

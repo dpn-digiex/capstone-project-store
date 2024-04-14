@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation'
 import ButtonLink from '@/components/button-link'
 import SeachComponent from '@/components/search'
 import { ROUTES_APP } from '@/constants'
+import useResponsive from '@/hooks/useResponsive'
 
 const MENU_HEADER = {
   IPHONE: {
@@ -41,6 +42,7 @@ const MENU_HEADER = {
 
 const Header = () => {
   const pathname = usePathname()
+  useResponsive()
 
   return (
     <header className='sticky top-0 z-[1000] w-full h-15  bg-bgBlack'>

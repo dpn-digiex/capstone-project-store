@@ -1,119 +1,30 @@
 import React from 'react'
 
-import Card from '@/components/card'
+import Banner from '@/components/banner'
 import FlashSale from '@/components/flash-sale'
-import Slider from '@/components/slider'
 
-const HomePage = () => {
+import AccessoriesSection from './_product-section/accessories/page'
+import IPadSection from './_product-section/iPad/page'
+import IPhoneSection from './_product-section/iPhone/page'
+import MacSection from './_product-section/mac/page'
+import SoundSection from './_product-section/sound/page'
+import WatchSection from './_product-section/watch/page'
+
+const HomePage = async () => {
+  const bannerResponse = await fetch('http://localhost:3000//api/banner')
+  const banners = await bannerResponse.json()
   return (
-    <div>
-      <FlashSale renderSize={6} />
-      <Slider renderSize={4}>
-        <Card
-          image='https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png'
-          name='iPhone 15 Pro Max'
-          currentPrice='29.890.000₫'
-          originPrice='34.990.000₫'
-          discount='-14%'
-          message='Online giá rẻ quá'
-        />
-        <Card
-          image='https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png'
-          name='iPhone 15 Pro Max'
-          currentPrice='29.890.000₫'
-          originPrice='34.990.000₫'
-          discount='-14%'
-          message='Online giá rẻ quá'
-        />
-        <Card
-          image='https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png'
-          name='iPhone 15 Pro Max'
-          currentPrice='29.890.000₫'
-          originPrice='34.990.000₫'
-          discount='-14%'
-          message='Online giá rẻ quá'
-        />
-        <Card
-          image='https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png'
-          name='iPhone 15 Pro Max'
-          currentPrice='29.890.000₫'
-          originPrice='34.990.000₫'
-          discount='-14%'
-          message='Online giá rẻ quá'
-        />
-        <Card
-          image='https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png'
-          name='iPhone 15 Pro Max'
-          currentPrice='29.890.000₫'
-          originPrice='34.990.000₫'
-          discount='-14%'
-          message='Online giá rẻ quá'
-        />
-        <Card
-          image='https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png'
-          name='iPhone 15 Pro Max'
-          currentPrice='29.890.000₫'
-          originPrice='34.990.000₫'
-          discount='-14%'
-          message='Online giá rẻ quá'
-        />
-        <Card
-          image='https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png'
-          name='iPhone 15 Pro Max'
-          currentPrice='29.890.000₫'
-          originPrice='34.990.000₫'
-          discount='-14%'
-          message='Online giá rẻ quá'
-        />
-        <Card
-          image='https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png'
-          name='iPhone 15 Pro Max'
-          currentPrice='29.890.000₫'
-          originPrice='34.990.000₫'
-          discount='-14%'
-          message='Online giá rẻ quá'
-        />
-        <Card
-          image='https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png'
-          name='iPhone 15 Pro Max'
-          currentPrice='29.890.000₫'
-          originPrice='34.990.000₫'
-          discount='-14%'
-          message='Online giá rẻ quá'
-        />
-        <Card
-          image='https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png'
-          name='iPhone 15 Pro Max'
-          currentPrice='29.890.000₫'
-          originPrice='34.990.000₫'
-          discount='-14%'
-          message='Online giá rẻ quá'
-        />
-        <Card
-          image='https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png'
-          name='iPhone 15 Pro Max'
-          currentPrice='29.890.000₫'
-          originPrice='34.990.000₫'
-          discount='-14%'
-          message='Online giá rẻ quá'
-        />
-        <Card
-          image='https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png'
-          name='iPhone 15 Pro Max'
-          currentPrice='29.890.000₫'
-          originPrice='34.990.000₫'
-          discount='-14%'
-          message='Online giá rẻ quá'
-        />
-        <Card
-          image='https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png'
-          name='iPhone 15 Pro Max'
-          currentPrice='29.890.000₫'
-          originPrice='34.990.000₫'
-          discount='-14%'
-          message='Online giá rẻ quá'
-        />
-      </Slider>
+    <div className=''>
+      <Banner banners={banners} />
+      <div className='container'>
+        <FlashSale renderSize={6} />
+        <IPhoneSection />
+        <MacSection />
+        <IPadSection />
+        <WatchSection />
+        <SoundSection />
+        <AccessoriesSection />
+      </div>
     </div>
   )
 }

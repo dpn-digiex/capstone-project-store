@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react'
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -11,6 +12,10 @@ import flashSaleImage from '@/assets/images/flash-sale.png'
 import useCountdown from '@/hooks/useCountdown'
 
 import './index.style.css'
+import 'swiper/css'
+import 'swiper/css/navigation'
+
+import SliderButton from '../slider-button'
 
 const ProductList = [
   {
@@ -191,8 +196,7 @@ const FlashSale = ({ renderSize = 4 }) => {
           speed={200 * renderSize}
           slidesPerGroup={renderSize}
           slidesPerView={renderSize}
-          className='p-[0.5rem!important]'
-          navigation={true}
+          className='p-[0.5rem!important] relative'
           modules={[Navigation, Autoplay]}
           loop
           autoplay={{
@@ -200,9 +204,10 @@ const FlashSale = ({ renderSize = 4 }) => {
             pauseOnMouseEnter: true
           }}
         >
+          <SliderButton type='prev' icon={<FaArrowLeft className='w-4 h-4' />} className='left-0' />
           {ProductList.map((product) => (
             <SwiperSlide key={product.id}>
-              <Link className='card px-2 py-4 rounded-xl gap-2' href=''>
+              <Link className='bg-[#323232] flex flex-col cursor-pointer px-2 py-4 rounded-xl gap-2' href=''>
                 <div className='flex flex-col gap-4 items-center'>
                   <Image
                     alt={product.name}
@@ -231,6 +236,7 @@ const FlashSale = ({ renderSize = 4 }) => {
               </Link>
             </SwiperSlide>
           ))}
+          <SliderButton type='next' icon={<FaArrowRight className='w-4 h-4' />} className='right-0' />
         </Swiper>
       </div>
     </div>

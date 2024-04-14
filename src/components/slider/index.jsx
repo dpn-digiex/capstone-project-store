@@ -10,9 +10,9 @@ const Slider = ({ renderSize = 4, children }) => {
   return (
     <Swiper
       spaceBetween={20}
+      speed={200 * renderSize}
+      slidesPerGroup={renderSize}
       slidesPerView={renderSize}
-      onSlideChange={() => console.log('slide change')}
-      onSwiper={(swiper) => console.log(swiper)}
       className='p-[0.5rem!important]'
       navigation={true}
       modules={[Navigation]}

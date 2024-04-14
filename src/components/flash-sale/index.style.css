@@ -1,0 +1,11 @@
+@tailwind components;
+
+@layer components {
+  .tab-active {
+    @apply font-bold relative;
+  }
+  .tab-active::after {
+    content: '';
+    @apply absolute bottom-0 w-1/5 h-1 bg-white rounded-full translate-y-1.5;
+  }
+}

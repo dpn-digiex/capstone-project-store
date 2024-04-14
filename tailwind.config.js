@@ -46,28 +46,28 @@ module.exports = {
       borderRadius: {},
       fontSize: {
         xs: [
-          '13px',
+          '0.8125rem',
           {
             fontStyle: 'normal',
             fontWeight: 300
           }
         ],
         sm: [
-          '14px',
+          '0.875rem',
           {
             fontStyle: 'normal',
             fontWeight: 400
           }
         ],
         md: [
-          '15px',
+          '0.9375rem',
           {
             fontStyle: 'normal',
             fontWeight: 500
           }
         ],
         lg: [
-          '20px',
+          '1.25rem',
           {
             fontStyle: 'normal',
             fontWeight: 500

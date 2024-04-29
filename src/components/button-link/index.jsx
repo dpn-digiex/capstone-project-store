@@ -11,8 +11,8 @@ const ButtonLink = ({ href = '', children, customStyle, isSelected = false }) =>
         ['bg-grayLight']: isSelected
       })}
     >
-      <div className={clsx('flex px-6 h-15 justify-center items-center', customStyle)}>
-        <div className='whitespace-nowrap overflow-hidden text-ellipsis text-sm'>{children}</div>
+      <div className={clsx('flex px-6 h-[60px] justify-center items-center', customStyle)}>
+        <div className='whitespace-nowrap overflow-hidden text-ellipsis text-xs font-medium'>{children}</div>
       </div>
     </Link>
   )

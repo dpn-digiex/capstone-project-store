@@ -40,37 +40,53 @@ module.exports = {
       colors: {
         bgBlack: '#101010',
         bgGray: '#323232',
-        grayLight: '#545454'
+        grayLight: '#545454',
+        orange: '#ff9f00',
+        skyBlue: '#2997ff'
       },
       borderWidth: {},
       borderRadius: {},
       fontSize: {
+        xxs: [
+          '0.75rem', // 12px
+          {
+            fontStyle: 'normal',
+            fontWeight: 300
+          }
+        ],
         xs: [
-          '0.8125rem',
+          '0.8125rem', // 13px
           {
             fontStyle: 'normal',
             fontWeight: 300
           }
         ],
         sm: [
-          '0.875rem',
+          '0.875rem', // 14px
           {
             fontStyle: 'normal',
             fontWeight: 400
           }
         ],
         md: [
-          '0.9375rem',
+          '0.9375rem', // 15px
           {
             fontStyle: 'normal',
             fontWeight: 500
           }
         ],
         lg: [
-          '1.25rem',
+          '1.25rem', // 20px
           {
             fontStyle: 'normal',
             fontWeight: 500
+          }
+        ],
+        xl: [
+          '2rem', // 32px
+          {
+            fontStyle: 'normal',
+            fontWeight: 600
           }
         ]
       },

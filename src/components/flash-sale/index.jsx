@@ -10,6 +10,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import flameImage from '@/assets/images/flame.png'
 import flashSaleImage from '@/assets/images/flash-sale.png'
 import useCountdown from '@/hooks/useCountdown'
+import { formatCurrency } from '@/utils'
 
 import './index.style.css'
 import 'swiper/css'
@@ -23,8 +24,8 @@ const ProductList = [
     name: 'iPhone 16 PRO VIP',
     image:
       'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 12_000_000,
-    originPrice: 15_000_000,
+    currentPrice: 19990000,
+    originPrice: 24490000,
     discount: '20%',
     total: 50,
     remain: 24
@@ -34,8 +35,8 @@ const ProductList = [
     name: 'iPhone 16 PRO VIP',
     image:
       'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 12_000_000,
-    originPrice: 15_000_000,
+    currentPrice: 19990000,
+    originPrice: 24490000,
     discount: '20%',
     total: 50,
     remain: 24
@@ -45,8 +46,8 @@ const ProductList = [
     name: 'iPhone 16 PRO VIP',
     image:
       'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 12_000_000,
-    originPrice: 15_000_000,
+    currentPrice: 19990000,
+    originPrice: 24490000,
     discount: '20%',
     total: 50,
     remain: 24
@@ -56,8 +57,8 @@ const ProductList = [
     name: 'iPhone 16 PRO VIP',
     image:
       'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 12_000_000,
-    originPrice: 15_000_000,
+    currentPrice: 19990000,
+    originPrice: 24490000,
     discount: '20%',
     total: 50,
     remain: 24
@@ -67,8 +68,8 @@ const ProductList = [
     name: 'iPhone 16 PRO VIP',
     image:
       'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 12_000_000,
-    originPrice: 15_000_000,
+    currentPrice: 19990000,
+    originPrice: 24490000,
     discount: '20%',
     total: 50,
     remain: 24
@@ -78,8 +79,8 @@ const ProductList = [
     name: 'iPhone 16 PRO VIP',
     image:
       'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 12_000_000,
-    originPrice: 15_000_000,
+    currentPrice: 19990000,
+    originPrice: 24490000,
     discount: '20%',
     total: 50,
     remain: 24
@@ -89,8 +90,8 @@ const ProductList = [
     name: 'iPhone 16 PRO VIP',
     image:
       'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 12_000_000,
-    originPrice: 15_000_000,
+    currentPrice: 19990000,
+    originPrice: 24490000,
     discount: '20%',
     total: 50,
     remain: 24
@@ -100,8 +101,8 @@ const ProductList = [
     name: 'iPhone 16 PRO VIP',
     image:
       'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 12_000_000,
-    originPrice: 15_000_000,
+    currentPrice: 19990000,
+    originPrice: 24490000,
     discount: '20%',
     total: 50,
     remain: 24
@@ -111,8 +112,8 @@ const ProductList = [
     name: 'iPhone 16 PRO VIP',
     image:
       'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 12_000_000,
-    originPrice: 15_000_000,
+    currentPrice: 19990000,
+    originPrice: 24490000,
     discount: '20%',
     total: 50,
     remain: 24
@@ -122,8 +123,8 @@ const ProductList = [
     name: 'iPhone 16 PRO VIP',
     image:
       'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 12_000_000,
-    originPrice: 15_000_000,
+    currentPrice: 19990000,
+    originPrice: 24490000,
     discount: '20%',
     total: 50,
     remain: 24
@@ -133,8 +134,8 @@ const ProductList = [
     name: 'iPhone 16 PRO VIP',
     image:
       'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 12_000_000,
-    originPrice: 15_000_000,
+    currentPrice: 19990000,
+    originPrice: 24490000,
     discount: '20%',
     total: 50,
     remain: 24
@@ -144,8 +145,8 @@ const ProductList = [
     name: 'iPhone 16 PRO VIP',
     image:
       'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 12_000_000,
-    originPrice: 15_000_000,
+    currentPrice: 19990000,
+    originPrice: 24490000,
     discount: '20%',
     total: 50,
     remain: 24
@@ -155,6 +156,7 @@ const ProductList = [
 const FlashSale = ({ renderSize = 4 }) => {
   const [activeTab, setActiveTab] = useState('current')
   const { hours, minutes, seconds } = useCountdown()
+
   return (
     <div className='p-2'>
       <div className='bg-black/50 rounded-xl'>
@@ -220,9 +222,9 @@ const FlashSale = ({ renderSize = 4 }) => {
                   <h3 className='text-[0.75rem] text-white text-center'>{product.name}</h3>
                 </div>
                 <div className='flex items-center justify-center flex-col'>
-                  <span className='text-sm font-bold text-[#ff9f00]'>{product.currentPrice}</span>
+                  <span className='text-sm font-bold text-[#ff9f00]'>{formatCurrency(product.currentPrice)}</span>
                   <div className='flex items-center gap-1'>
-                    <strike className='text-[0.7rem] text-white/25'>{product.originPrice}</strike>
+                    <strike className='text-[0.7rem] text-white/25'>{formatCurrency(product.originPrice)}</strike>
                     <span className='block text-[0.7rem] bg-red-600 py-0.5 px-1 rounded'>{product.discount}</span>
                   </div>
                 </div>

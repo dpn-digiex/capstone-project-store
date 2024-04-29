@@ -45,7 +45,7 @@ const Header = () => {
   useResponsive()
 
   return (
-    <header className='sticky top-0 z-[1000] w-full h-15  bg-bgBlack'>
+    <header className='sticky top-0 z-[1000] w-full h-[60px]  bg-bgBlack'>
       <div className='container h-full flex items-center justify-between '>
         <div className='mr-12'>
           <ButtonLink href='/' customStyle='justify-start px-0'>

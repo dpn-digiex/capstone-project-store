@@ -3,7 +3,7 @@
 }
 
 .section-detail {
-  @apply w-full flex min-h-[60vh] relative container py-4;
+  @apply w-full flex min-h-[60vh] relative container py-4 gap-4;
 }
 
 .gallery {

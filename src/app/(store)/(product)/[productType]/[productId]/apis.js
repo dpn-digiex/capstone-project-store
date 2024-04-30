@@ -1,5 +1,5 @@
-import { RAW_DATA } from './raw-data'
+import { RAW_PRODUCT_DETAILW } from './raw-data'
 
 export const getProductDetail = async ({ params }) => {
-  return RAW_DATA
+  return RAW_PRODUCT_DETAILW
 }

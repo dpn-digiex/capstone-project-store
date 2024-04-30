@@ -22,10 +22,10 @@ const SliderGallery = ({ listImg = [], thumbsPerView = THUMBS_PER_VIEW }) => {
   const [currentThumbSlide, setCurrentThumbSlide] = useState(0)
 
   return (
-    <div className='flex flex-col'>
+    <div id='slider-gallery' className='flex flex-col'>
       <Swiper
         spaceBetween={10}
-        thumbs={{ swiper: thumbsSwiper }}
+        thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
         modules={[FreeMode, Navigation, Thumbs]}
         className='p-[0.5rem!important] relative'
         onSlideChange={(swiper) => setCurrentSlide(swiper.activeIndex)}
@@ -37,7 +37,7 @@ const SliderGallery = ({ listImg = [], thumbsPerView = THUMBS_PER_VIEW }) => {
           </SwiperSlide>
         ))}
         {currentSlide < listImg.length - 1 && (
-          <SliderButton type='next' icon={<FaArrowRight className='w-4 h-4' />} className='right-0' />
+          <SliderButton type='next' icon={<FaArrowRight className='w-4 h-4' />} className='right-2' />
         )}
       </Swiper>
       <Swiper
@@ -57,7 +57,7 @@ const SliderGallery = ({ listImg = [], thumbsPerView = THUMBS_PER_VIEW }) => {
           <SwiperSlide key={index}>
             <div
               className={clsx(
-                'bg-white w-20 h-20 flex items-center justify-center border-[3px] border-solid rounded-[0.75rem] cursor-pointer',
+                'bg-white w-20 h-20 flex items-center justify-center border-[3px] border-solid rounded-[10px] cursor-pointer',
                 { 'border-skyBlue': currentSlide === index }
               )}
             >
@@ -66,7 +66,7 @@ const SliderGallery = ({ listImg = [], thumbsPerView = THUMBS_PER_VIEW }) => {
           </SwiperSlide>
         ))}
         {currentThumbSlide < listImg.length - thumbsPerView && (
-          <SliderButton type='next' icon={<FaArrowRight className='w-4 h-4' />} className='right-0' />
+          <SliderButton type='next' icon={<FaArrowRight className='w-4 h-4' />} className='right-2' />
         )}
       </Swiper>
     </div>

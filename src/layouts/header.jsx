@@ -45,10 +45,10 @@ const Header = () => {
   useResponsive()
 
   return (
-    <header className='sticky top-0 z-[1000] w-full h-15  bg-bgBlack'>
+    <header className='sticky top-0 z-[1000] w-full h-[60px]  bg-bgBlack'>
       <div className='container h-full flex items-center justify-between '>
         <div className='mr-12'>
-          <ButtonLink href='/' customStyle='justify-start px-0'>
+          <ButtonLink href='/' customStyle='justify-start px-0 min-w-25 max-w-[200px]'>
             LOGO_STORE
           </ButtonLink>
         </div>
@@ -59,6 +59,7 @@ const Header = () => {
                 key={`menu-header-${index}`}
                 href={MENU_HEADER[key].PATH}
                 isSelected={pathname.includes(MENU_HEADER[key].PATH)}
+                customStyle='min-w-25 max-w-[200px]'
               >
                 {MENU_HEADER[key].TITLE}
               </ButtonLink>

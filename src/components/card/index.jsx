@@ -3,6 +3,8 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { formatCurrency } from '@/utils'
+
 import './index.style.css'
 
 const Card = ({ image, name, currentPrice, originPrice, discount, message, imageClass }) => {
@@ -20,8 +22,8 @@ const Card = ({ image, name, currentPrice, originPrice, discount, message, image
         <h3 className='text-base text-white text-center'>{name}</h3>
       </div>
       <div className='flex items-center gap-1.5 justify-center mt-5'>
-        <span className='text-md font-bold'>{currentPrice}</span>
-        <strike className='text-[0.75rem]'>{originPrice}</strike>
+        <span className='text-md font-bold'>{formatCurrency(currentPrice)}</span>
+        <strike className='text-[0.75rem]'>{formatCurrency(originPrice)}</strike>
         <small className='text-[0.75rem]'>{discount}</small>
       </div>
       <p className='text-[#ff9f00] text-center text-sm'>{message}</p>

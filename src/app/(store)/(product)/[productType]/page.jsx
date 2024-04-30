@@ -1,5 +1,3 @@
-'use client'
-
 const ProductTypePage = ({ isDefaultPage = false, params }) => {
   return (
     <div>

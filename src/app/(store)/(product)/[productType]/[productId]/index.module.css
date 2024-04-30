@@ -1,0 +1,15 @@
+.page-container {
+  @apply w-full;
+}
+
+.section-detail {
+  @apply w-full flex min-h-[60vh] relative container py-4 gap-4;
+}
+
+.gallery {
+  @apply flex-1 w-1/2 sticky overflow-hidden top-0 min-h-[60vh];
+}
+
+.info {
+  @apply flex-1 w-1/2;
+}

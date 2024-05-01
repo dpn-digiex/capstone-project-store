@@ -42,7 +42,9 @@ module.exports = {
         bgGray: '#323232',
         grayLight: '#545454',
         orange: '#ff9f00',
-        skyBlue: '#2997ff'
+        skyBlue: '#2997ff',
+        blue: '#0071e3',
+        green: '#00a650'
       },
       borderWidth: {},
       borderRadius: {},

@@ -12,6 +12,7 @@ import { formatCurrency } from '@/utils'
 
 import ListColors from './_sections/list-colors'
 import ListVariants from './_sections/list-variants'
+import Reviews from './_sections/reviews'
 import Suggestions from './_sections/suggestions'
 import styles from './index.module.css'
 import { RAW_PRODUCT_DETAIL } from './raw-data'
@@ -109,6 +110,7 @@ const ProductDetailPage = async ({ params, searchParams }) => {
         </div>
       </section>
       <Suggestions productId={product.id} productData={product} />
+      <Reviews productId={product.id} productData={product} />
     </div>
   )
 }

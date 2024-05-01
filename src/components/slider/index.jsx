@@ -24,7 +24,7 @@ const Slider = ({ renderSize = 4, children }) => {
     >
       {currentSlide > 0 && <SliderButton type='prev' icon={<FaArrowLeft className='w-4 h-4' />} className='left-0' />}
       {Children.map(children, (child) => (
-        <SwiperSlide className='!h-auto'>{child}</SwiperSlide>
+        <SwiperSlide className='!h-auto z-1'>{child}</SwiperSlide>
       ))}
       {currentSlide < Math.max(0, children.length - renderSize) && (
         <SliderButton type='next' icon={<FaArrowRight className='w-4 h-4' />} className='right-0' />

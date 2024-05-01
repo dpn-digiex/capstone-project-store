@@ -1,0 +1,17 @@
+.custom-input {
+  @apply relative;
+}
+.custom-input:has(input:focus) .custom-input-label,
+.custom-input:has(input:not(:placeholder-shown)) .custom-input-label {
+  @apply top-0 scale-75 text-white;
+}
+.custom-input input::placeholder {
+  color: transparent;
+}
+
+.custom-input-label {
+  @apply text-white/80 top-1/2 scale-100;
+  @apply absolute left-2 -translate-y-1/2 z-10;
+  @apply cursor-text bg-[#515965] px-1 select-none;
+  @apply transition-[transform,top,color] duration-100 ease-linear;
+}

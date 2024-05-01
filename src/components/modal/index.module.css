@@ -1,0 +1,40 @@
+.modal-backdrop {
+  position: fixed;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  inset: 0;
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 20rem;
+  max-width: 70%;
+  background-color: white;
+  box-sizing: border-box;
+  border-radius: 12px;
+  opacity: 0;
+}
+
+.modal-backdrop.open,
+.modal-content.open {
+  opacity: 1;
+  transition: opacity 200ms ease-in;
+}
+
+.modal-backdrop.close,
+.modal-content.close {
+  transition: opacity 200ms ease-out;
+}
+
+.close-icon {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
+}

@@ -1,0 +1,66 @@
+.container {
+  position: relative;
+  width: fit-content;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.label {
+  font-size: 14px;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1;
+}
+
+.arrow {
+  font-size: 11px;
+  margin-left: 4px;
+  transition: transform 0.3s ease;
+}
+
+.arrowOpen {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  z-index: 2;
+  visibility: hidden;
+}
+
+.option {
+  font-size: 14px;
+  padding: 10px;
+  cursor: pointer;
+  color: black;
+}
+
+.option.optionSelected {
+  color: #007aff;
+}
+
+.option:hover {
+  color: #2997ff;
+}
+
+.optionsOpen {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}

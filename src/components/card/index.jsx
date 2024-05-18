@@ -10,7 +10,7 @@ import './index.style.css'
 const Card = ({ image, name, currentPrice, originPrice, discount, message, imageClass }) => {
   return (
     <Link className='card p-8 rounded-3xl' href=''>
-      <div className='flex flex-col gap-6'>
+      <div className='flex flex-col gap-6 items-center'>
         <Image
           alt={name}
           src={image}

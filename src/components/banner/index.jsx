@@ -9,7 +9,7 @@ import 'swiper/css/pagination'
 
 import SliderButton from '../slider-button'
 
-const Banner = ({ banners }) => {
+const Banner = ({ banners, customStyleSlide = '' }) => {
   return (
     <Swiper
       spaceBetween={20}
@@ -26,7 +26,7 @@ const Banner = ({ banners }) => {
       <SliderButton type='prev' icon={<FaArrowLeft className='w-4 h-4' />} className='left-0 translate-x-full' />
       {banners.map((banner) => (
         <SwiperSlide key={banner.id}>
-          <Image alt='Banner' src={banner.image} width={1440} height={400} className='w-full' />
+          <Image alt='Banner' src={banner.image} width={1440} height={400} className={'w-full'} />
         </SwiperSlide>
       ))}
       <SliderButton type='next' icon={<FaArrowRight className='w-4 h-4' />} className='right-0 -translate-x-full' />

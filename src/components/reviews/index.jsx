@@ -1,8 +1,9 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { GoShieldCheck } from 'react-icons/go'
 import { HiOutlineStar, HiStar } from 'react-icons/hi2'
 import { IoCameraOutline } from 'react-icons/io5'
+import { IoClose } from 'react-icons/io5'
 import clsx from 'clsx'
 import Image from 'next/image'
 
@@ -41,12 +42,15 @@ const STAR_RATING = [
 const Reviews = ({ productData = null }) => {
   const [ratedStar, setRatedStar] = useState(null)
   const [isOpenModalRating, setIsOpenModalRating] = useState(false)
+  const [images, setImages] = useState([])
   const [formReview, setFormReview] = useState({
     name: '',
     phone: '',
     feedback: '',
     willRefer: false
   })
+
+  const fileInputRef = useRef(null)
 
   const handleRatingStar = (star) => {
     setRatedStar(star)
@@ -57,6 +61,36 @@ const Reviews = ({ productData = null }) => {
     event.preventDefault()
     console.log({ formReview })
   }
+
+  const handleOpenFileBrowser = () => {
+    fileInputRef.current.click()
+  }
+
+  const handleChangeImage = (e) => {
+    const files = Array.from(e.target.files)
+    const currentImageCount = images.length
+    const totalImageCount = currentImageCount + files.length
+
+    if (totalImageCount > 3) {
+      alert('You can only upload a maximum of 3 images')
+      return
+    }
+
+    const imageUrls = files.map((file) => URL.createObjectURL(file))
+    setImages((prevImages) => [...prevImages, ...imageUrls])
+  }
+
+  useEffect(() => {
+    if (!isOpenModalRating) {
+      setImages([])
+      setFormReview({
+        name: '',
+        phone: '',
+        feedback: '',
+        willRefer: false
+      })
+    }
+  }, [isOpenModalRating])
 
   return (
     <section className={styles['reviews-section']}>
@@ -95,7 +129,7 @@ const Reviews = ({ productData = null }) => {
         <Modal
           onCloseModal={() => setIsOpenModalRating(false)}
           isOpen={isOpenModalRating}
-          customStyle={'min-w-[700px]'}
+          customStyle={'min-w-[300px]'}
         >
           <h1 className='text-black font-bold text-md text-center py-4 border-b-[#f5f5f5] border-b-[1px]'>
             Đánh giá sản phẩm
@@ -111,13 +145,13 @@ const Reviews = ({ productData = null }) => {
                   onClick={() => handleRatingStar(star)}
                 >
                   {star.rating <= ratedStar?.rating ? (
-                    <HiStar size={50} fill='#FF9F00' />
+                    <HiStar size={'3.125rem'} fill='#FF9F00' />
                   ) : (
-                    <HiOutlineStar size={50} stroke='#FF9F00' strokeWidth={1} />
+                    <HiOutlineStar size={'3.125rem'} stroke='#FF9F00' strokeWidth={1} />
                   )}
                   <span
-                    className={clsx('text-[#757575] text-xs', {
-                      ['text-[#FF9F00] font-[500']: ratedStar?.rating === star.rating
+                    className={clsx('text-[#757575] text-xxs', {
+                      ['text-[#FF9F00] font-[600]']: ratedStar?.rating === star.rating
                     })}
                   >
                     {star.status}
@@ -129,32 +163,56 @@ const Reviews = ({ productData = null }) => {
 
           <form onSubmit={handleSubmit} className='w-full mx-auto p-4 flex flex-col gap-3'>
             <textarea
-              className='w-full text-xs text-black p-2 border border-gray-200 rounded resize-none h-[100px] focus:outline-none placeholder-gray-500 rounded-[12px]'
+              className='w-full text-xxs text-black p-2 border border-gray-200 rounded resize-none h-[100px] focus:outline-none placeholder-gray-500 rounded-[12px]'
               placeholder='Mời bạn chia sẻ thêm cảm nhận...'
               value={formReview.feedback}
               onChange={(e) => setFormReview({ ...formReview, feedback: e.target.value })}
             />
-            <div className='flex items-center justify-between'>
+            <div className='flex items-start justify-between'>
               <div className='flex items-center'>
                 <input
                   type='checkbox'
                   checked={formReview.willRefer}
                   onChange={(e) => setFormReview({ ...formReview, willRefer: e.target.checked })}
                 />
-                <span className='ml-1 text-black text-xs'>Tôi sẽ giới thiệu sản phẩm cho bạn bè, người thân</span>
+                <span className='ml-1 text-black text-xxs'>Tôi sẽ giới thiệu sản phẩm cho bạn bè, người thân</span>
               </div>
-              <div className='flex items-center cursor-pointer gap-1 pl-8'>
-                <IoCameraOutline size={20} stroke='#0071e3' />
-                <p className='text-xs text-[#0071e3]'>
-                  Gửi ảnh thực tế <span className='text-black'>(Tối đa 3 ảnh)</span>
-                </p>
+              <div className='flex flex-col gap-1 pl-8'>
+                <div className='flex items-center gap-1 cursor-pointer' onClick={handleOpenFileBrowser}>
+                  <IoCameraOutline size={20} stroke='#0071e3' />
+                  <p className='text-xxs text-[#0071e3] font-[500]'>
+                    Gửi ảnh thực tế <span className='text-black font-[400]'>(Tối đa 3 ảnh)</span>
+                  </p>
+                </div>
+                <div className='flex flex-wrap mt-[10px] gap-2'>
+                  {images.map((image, index) => (
+                    <div className='relative' key={index}>
+                      <Image src={image} width={50} height={50} alt={`Selected ${index}`} className='object-contain' />
+                      <div
+                        className='absolute top-0 right-0 cursor-pointer'
+                        onClick={() => setImages((prevImages) => prevImages.filter((_, i) => i !== index))}
+                      >
+                        <IoClose size={10} fill='#3e3e3e' />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <input
+                  multiple
+                  ref={fileInputRef}
+                  type='file'
+                  accept='image/*'
+                  style={{ display: 'none' }}
+                  onChange={handleChangeImage}
+                />
               </div>
             </div>
+
             <div className='flex gap-3'>
               <input
                 required
                 type='text'
-                className='w-full text-xs text-black p-2 border border-gray-200 rounded-[12px] focus:outline-none placeholder-gray-500'
+                className='w-full text-xxs text-black p-2 border border-gray-200 rounded-[12px] focus:outline-none placeholder-gray-500'
                 placeholder='Họ tên (bắt buộc)'
                 value={formReview.name}
                 onChange={(e) => setFormReview({ ...formReview, name: e.target.value })}
@@ -162,7 +220,7 @@ const Reviews = ({ productData = null }) => {
               <input
                 required
                 type='tel'
-                className='w-full text-xs text-black p-2 border border-gray-200 rounded-[12px] focus:outline-none placeholder-gray-500'
+                className='w-full text-xxs text-black p-2 border border-gray-200 rounded-[12px] focus:outline-none placeholder-gray-500'
                 placeholder='Số điện thoại (bắt buộc)'
                 value={formReview.phone}
                 onChange={(e) => setFormReview({ ...formReview, phone: e.target.value })}
@@ -170,11 +228,11 @@ const Reviews = ({ productData = null }) => {
             </div>
             <div className='flex gap-1 items-center'>
               <GoShieldCheck fill='#00a650' size={14} />
-              <span className='text-black text-xs'>Cửa hàng cam kết bảo mật thông tin của bạn</span>
+              <span className='text-black text-xxs'>Cửa hàng cam kết bảo mật thông tin của bạn</span>
             </div>
             <button
               type='submit'
-              className='w-full bg-blue p-2 rounded-[12px] hover:bg-blue-700 transition-colors h-[50px] text-xs font-bold focus:outline-none'
+              className='w-full bg-blue p-2 rounded-[12px] hover:bg-blue-700 transition-colors h-[50px] text-xxs font-bold focus:outline-none'
             >
               Gửi đánh giá
             </button>

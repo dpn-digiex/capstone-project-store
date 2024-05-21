@@ -53,14 +53,14 @@ module.exports = {
           '0.75rem', // 12px
           {
             fontStyle: 'normal',
-            fontWeight: 300
+            fontWeight: 400
           }
         ],
         xs: [
           '0.8125rem', // 13px
           {
             fontStyle: 'normal',
-            fontWeight: 300
+            fontWeight: 400
           }
         ],
         sm: [

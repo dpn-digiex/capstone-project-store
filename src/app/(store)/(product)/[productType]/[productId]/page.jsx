@@ -6,6 +6,7 @@ import { TbTruckDelivery } from 'react-icons/tb'
 import Link from 'next/link'
 
 import ButtonLink from '@/components/button-link'
+import Comments from '@/components/comments'
 import Reviews from '@/components/reviews'
 import SliderGallery from '@/components/slider-gallery'
 import StatusLabel from '@/components/status-label'
@@ -111,6 +112,7 @@ const ProductDetailPage = async ({ params, searchParams }) => {
       </section>
       <Suggestions productId={product.id} productData={product} />
       <Reviews productId={product.id} productData={product} />
+      <Comments productId={product.id} productData={product} />
     </div>
   )
 }

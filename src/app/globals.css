@@ -58,3 +58,10 @@ body {
     overflow-y: hidden;
   }
 }
+@layer components {
+  .categories:hover {
+    box-shadow:
+      -4px -4px 8px rgba(134, 134, 134, 0.2),
+      4px 4px 8px rgba(28, 28, 28, 0.4);
+  }
+}

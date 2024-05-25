@@ -7,7 +7,7 @@ const StoreLayout = ({ children }) => {
   return (
     <div className='w-full h-screen'>
       <Header />
-      <section className='min-h-[50vh]'>{children}</section>
+      <div className='min-h-[50vh]'>{children}</div>
       <Footer />
     </div>
   )

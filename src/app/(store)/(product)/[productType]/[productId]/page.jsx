@@ -15,6 +15,7 @@ import { formatCurrency } from '@/utils'
 import ListColors from './_sections/list-colors'
 import ListVariants from './_sections/list-variants'
 import Suggestions from './_sections/suggestions'
+import ButtonAddToCard from './components/btnAddToCard'
 import styles from './index.module.css'
 import { RAW_PRODUCT_DETAIL } from './raw-data'
 
@@ -54,9 +55,19 @@ const ProductDetailPage = async ({ params, searchParams }) => {
                 </Link>
               </li>
             </div>
-            <ButtonLink href='/payment' customStyle={'w-full'} customStyleText='text-[1rem] !font-bold' mode='primary'>
-              Mua ngay
-            </ButtonLink>
+
+            <div className='flex gap-4'>
+              <ButtonLink
+                href='/payment'
+                customStyle={'w-full'}
+                customStyleText='text-[1rem] !font-bold'
+                mode='primary'
+              >
+                Mua ngay
+              </ButtonLink>
+
+              <ButtonAddToCard productData={product} />
+            </div>
             <div className='flex flex-col gap-2'>
               <div className='flex gap-2'>
                 <div className='w-[32px] h-[32px] flex items-center justify-center'>

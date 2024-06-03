@@ -78,3 +78,19 @@ export const objectFromFormData = (formData, multi = [], replacer) => {
   if (getType(replacer).includes('function')) return replacer(objectData)
   return objectData
 }
+
+export const getGenderTitle = (gender) => {
+  if (!gender) return 'Anh/Chị'
+  switch (gender.toLowerCase()) {
+    case 'male':
+      return 'Anh'
+    case 'female':
+      return 'Chị'
+    default:
+      return 'Anh/Chị'
+  }
+}
+export const concatString = (...data) => {
+  const address = data.reduce((result, item) => (item ? result.concat(item) : result), [])
+  return address.join(', ')
+}

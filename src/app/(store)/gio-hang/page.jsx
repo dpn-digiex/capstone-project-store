@@ -2,11 +2,14 @@
 import React, { useEffect, useState } from 'react'
 import { MdChevronLeft } from 'react-icons/md'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 import Loading from '@/app/loading'
+import { CacheKey, ROUTES_APP } from '@/constants'
 import useFetch from '@/hooks/useFetch'
 import { getCartService } from '@/services/cart-service'
 import { getType, objectFromFormData } from '@/utils'
+import CacheUtil from '@/utils/cache'
 
 import CartEmptyPage from './_cart-empty/page'
 import ProductSection from './_product-section/page'
@@ -18,6 +21,7 @@ const CartPage = () => {
   const [refreshCart, setRefreshCart] = useState(0)
   const { isLoading, response: cartData } = useFetch(getCartService, refreshCart)
   const [selectedItems, setSelectedItems] = useState([])
+  const router = useRouter()
 
   const handleSelectItem = (e, productId) => {
     if (e.target.checked === true) return setSelectedItems((prev) => prev.concat(productId))
@@ -37,7 +41,8 @@ const CartPage = () => {
       cloneData['cart-items'] = transformCartItems
       return cloneData
     })
-    console.log(payload)
+    CacheUtil.setCachedData(CacheKey.checkout, payload)
+    router.push(ROUTES_APP.CHECKOUT)
   }
 
   useEffect(() => {

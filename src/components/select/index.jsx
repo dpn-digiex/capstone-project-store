@@ -21,7 +21,8 @@ const Select = ({
   defaultValue = null,
   onSelect = () => {},
   customRender = null,
-  filter = false
+  filter = false,
+  name
 }) => {
   // States
   const selectRef = useRef()
@@ -136,6 +137,9 @@ const Select = ({
           </div>
         )}
       </ul>
+      {name ? (
+        <input type='hidden' name={name} value={selectedOption[valueKey] ? selectedOption[renderKey] : ''} />
+      ) : null}
     </div>
   )
 }

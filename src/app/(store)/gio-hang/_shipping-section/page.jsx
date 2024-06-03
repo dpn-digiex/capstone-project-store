@@ -17,7 +17,7 @@ const ShippingSection = () => {
               id='shipping-in-place'
               type='radio'
               name='shipping-method'
-              value='cod'
+              value='in-place'
               className='h-3.5 w-3.5 accent-slate-700'
               defaultChecked
             />
@@ -37,6 +37,7 @@ const ShippingSection = () => {
             ]}
             filter
             inputPlaceholder='Tìm theo tỉnh/thành'
+            name='shipping-province'
           />
           <Select
             placeholder='Chọn Quận/Huyện'
@@ -45,6 +46,7 @@ const ShippingSection = () => {
             dropdownClassName={styles['shipping-dropdown']}
             filter
             inputPlaceholder='Tìm theo quận/huyện'
+            name='shipping-district'
           />
           <Select
             placeholder='Chọn Phường/Xã'
@@ -53,6 +55,7 @@ const ShippingSection = () => {
             dropdownClassName={styles['shipping-dropdown']}
             filter
             inputPlaceholder='Tìm theo phường/xã'
+            name='shipping-commune'
           />
           <div className={clsx(styles['custom-input'], 'bg-slate-500')}>
             <input

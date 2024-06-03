@@ -36,11 +36,12 @@ const UserInfoSection = () => {
               id='customer-name'
               name='customer-name'
               type='text'
+              required
               placeholder='Họ và tên'
               className='p-2 border-slate-300 border-[0.125rem] rounded-md outline-none bg-transparent w-full'
             />
             <label htmlFor='customer-name' className={styles['custom-input-label']}>
-              Họ và tên
+              Họ và tên*
             </label>
           </div>
           <div className={styles['custom-input']}>
@@ -48,11 +49,12 @@ const UserInfoSection = () => {
               id='customer-phone'
               name='customer-phone'
               type='text'
+              required
               placeholder='Số điện thoại'
               className='p-2 border-slate-300 border-[0.125rem] rounded-md outline-none bg-transparent w-full'
             />
             <label htmlFor='customer-phone' className={styles['custom-input-label']}>
-              Số điện thoại
+              Số điện thoại*
             </label>
           </div>
         </div>

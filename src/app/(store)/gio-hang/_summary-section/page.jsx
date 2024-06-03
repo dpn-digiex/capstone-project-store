@@ -16,7 +16,7 @@ const SummarySection = ({ total = 0, isSubmitable = false }) => {
       </div>
       <button
         className={clsx(
-          'flex items-center justify-center w-full p-3 rounded-lg bg-sky-600 font-bold',
+          'flex items-center justify-center w-full p-3 rounded-lg bg-sky-500 font-bold',
           'disabled:opacity-50 disabled:pointer-events-none'
         )}
         type='submit'

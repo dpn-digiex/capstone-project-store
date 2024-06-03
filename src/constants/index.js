@@ -28,3 +28,7 @@ export const ResponseStatus = {
   success: 'Success',
   error: 'Error'
 }
+export const CacheKey = {
+  cart: 'CART',
+  checkout: 'CHECKOUT'
+}

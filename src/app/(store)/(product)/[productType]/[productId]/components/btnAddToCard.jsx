@@ -1,13 +1,15 @@
 'use client'
 import React from 'react'
 
+import { CacheKey } from '@/constants'
 import { addToCartService } from '@/services/cart-service'
+import CacheUtil from '@/utils/cache'
 
 const ButtonAddToCard = ({ productData = {} }) => {
   const handleAddToCard = async () => {
     try {
       const result = await addToCartService(productData)
-      if (result) console.log('Add successful')
+      if (result) CacheUtil.setCachedData(CacheKey.cart)
     } catch (error) {
       console.log(error.message)
     }

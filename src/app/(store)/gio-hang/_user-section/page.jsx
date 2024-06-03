@@ -6,7 +6,7 @@ const UserInfoSection = () => {
   return (
     <div className='px-6 py-3 bg-[#515965] shadow-lg mt-1 text-xs'>
       <h3 className='text-sm font-bold'>Thông tin khách hàng</h3>
-      <form className='grid gap-3 mt-2'>
+      <div className='grid gap-3 mt-2'>
         <div className='flex items-center gap-6'>
           <label htmlFor='customer-male' className='flex items-center gap-1 cursor-pointer'>
             <input
@@ -36,11 +36,12 @@ const UserInfoSection = () => {
               id='customer-name'
               name='customer-name'
               type='text'
+              required
               placeholder='Họ và tên'
               className='p-2 border-slate-300 border-[0.125rem] rounded-md outline-none bg-transparent w-full'
             />
             <label htmlFor='customer-name' className={styles['custom-input-label']}>
-              Họ và tên
+              Họ và tên*
             </label>
           </div>
           <div className={styles['custom-input']}>
@@ -48,15 +49,16 @@ const UserInfoSection = () => {
               id='customer-phone'
               name='customer-phone'
               type='text'
+              required
               placeholder='Số điện thoại'
               className='p-2 border-slate-300 border-[0.125rem] rounded-md outline-none bg-transparent w-full'
             />
             <label htmlFor='customer-phone' className={styles['custom-input-label']}>
-              Số điện thoại
+              Số điện thoại*
             </label>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   )
 }

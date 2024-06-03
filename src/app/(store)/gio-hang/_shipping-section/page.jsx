@@ -10,14 +10,14 @@ const ShippingSection = () => {
   return (
     <div className='px-6 py-3 bg-[#515965] shadow-lg mt-1 text-xs'>
       <h3 className='text-sm font-bold'>Hình thức nhận hàng</h3>
-      <form className='grid gap-3 mt-2'>
+      <div className='grid gap-3 mt-2'>
         <div className='flex items-center gap-6'>
           <label htmlFor='shipping-in-place' className='flex items-center gap-1 cursor-pointer'>
             <input
               id='shipping-in-place'
               type='radio'
               name='shipping-method'
-              value='male'
+              value='in-place'
               className='h-3.5 w-3.5 accent-slate-700'
               defaultChecked
             />
@@ -37,6 +37,7 @@ const ShippingSection = () => {
             ]}
             filter
             inputPlaceholder='Tìm theo tỉnh/thành'
+            name='shipping-province'
           />
           <Select
             placeholder='Chọn Quận/Huyện'
@@ -44,6 +45,8 @@ const ShippingSection = () => {
             className='border-[0.125rem] border-slate-300 rounded-md bg-slate-500'
             dropdownClassName={styles['shipping-dropdown']}
             filter
+            inputPlaceholder='Tìm theo quận/huyện'
+            name='shipping-district'
           />
           <Select
             placeholder='Chọn Phường/Xã'
@@ -51,6 +54,8 @@ const ShippingSection = () => {
             className='border-[0.125rem] border-slate-300 rounded-md bg-slate-500'
             dropdownClassName={styles['shipping-dropdown']}
             filter
+            inputPlaceholder='Tìm theo phường/xã'
+            name='shipping-commune'
           />
           <div className={clsx(styles['custom-input'], 'bg-slate-500')}>
             <input
@@ -77,7 +82,7 @@ const ShippingSection = () => {
             Nhập ghi chú (nếu có)
           </label>
         </div>
-      </form>
+      </div>
       <Receiver />
     </div>
   )

@@ -11,7 +11,7 @@ import SoundSection from './_product-section/sound/page'
 import WatchSection from './_product-section/watch/page'
 
 const HomePage = async () => {
-  const bannerResponse = await fetch('http://localhost:3000//api/banner')
+  const bannerResponse = await fetch('http://localhost:3000/api/banner')
   const banners = await bannerResponse.json()
   return (
     <div className=''>

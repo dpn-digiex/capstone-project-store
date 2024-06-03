@@ -23,7 +23,7 @@ const Receiver = () => {
         <span>Gọi người khác nhận hàng</span>
       </label>
       {receiver === 'other-receiver' ? (
-        <form className='grid gap-3 mt-2 p-2 bg-slate-500 rounded-md'>
+        <div className='grid gap-3 mt-2 p-2 bg-slate-500 rounded-md'>
           <div className='flex items-center gap-6'>
             <label htmlFor='receiver-male' className='flex items-center gap-1 cursor-pointer'>
               <input
@@ -54,11 +54,12 @@ const Receiver = () => {
                 name='receiver-name'
                 type='text'
                 autoComplete='off'
+                required
                 placeholder='Họ và tên'
                 className='p-2 border-slate-300 border-[0.125rem] rounded-md outline-none bg-transparent w-full'
               />
               <label htmlFor='receiver-name' className={styles['custom-input-label']}>
-                Họ và tên
+                Họ và tên*
               </label>
             </div>
             <div className={clsx(styles['custom-input'], 'bg-slate-500')}>
@@ -67,15 +68,16 @@ const Receiver = () => {
                 name='receiver-phone'
                 type='text'
                 autoComplete='off'
+                required
                 placeholder='Số điện thoại'
                 className='p-2 border-slate-300 border-[0.125rem] rounded-md outline-none bg-transparent w-full'
               />
               <label htmlFor='receiver-phone' className={styles['custom-input-label']}>
-                Số điện thoại
+                Số điện thoại*
               </label>
             </div>
           </div>
-        </form>
+        </div>
       ) : null}
     </div>
   )

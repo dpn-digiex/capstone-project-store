@@ -1,13 +1,14 @@
 'use client'
 import React from 'react'
 import { HiOutlineShoppingBag } from 'react-icons/hi2'
+import clsx from 'clsx'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import ButtonLink from '@/components/button-link'
 import SeachComponent from '@/components/search'
 import { ROUTES_APP } from '@/constants'
-import useResponsive from '@/hooks/useResponsive'
+// import useResponsive from '@/hooks/useResponsive'
 
 const MENU_HEADER = {
   IPHONE: {
@@ -39,11 +40,11 @@ const MENU_HEADER = {
     TITLE: 'Blog Công nghệ'
   }
 }
+const cartLength = 0
 
 const Header = () => {
   const pathname = usePathname()
-  useResponsive()
-
+  // useResponsive()
   return (
     <header className='sticky top-0 z-[1000] w-full h-[60px]  bg-bgBlack'>
       <div className='container h-full flex items-center justify-between '>
@@ -69,8 +70,19 @@ const Header = () => {
         <div className='ml-12 flex items-center justify-center gap-2'>
           <SeachComponent />
           <Link href={ROUTES_APP.CART}>
-            <div className='w-9 h-9 rounded-full flex items-center justify-center bg-[#2f3033] hover:bg-[#545454] cursor-pointer'>
+            <div className='relative w-9 h-9 rounded-full flex items-center justify-center bg-[#2f3033] hover:bg-[#545454] cursor-pointer'>
               <HiOutlineShoppingBag />
+              {cartLength === 0 ? null : (
+                <span
+                  className={clsx(
+                    'text-[0.5rem] leading-[0] h-4 w-4 bg-red-500 rounded-full',
+                    'flex items-center justify-center',
+                    'absolute top-0 right-0'
+                  )}
+                >
+                  {cartLength}
+                </span>
+              )}
             </div>
           </Link>
         </div>

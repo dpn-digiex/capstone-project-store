@@ -2,7 +2,7 @@ import clsx from 'clsx'
 
 const CheckBox = ({
   className,
-  checked,
+  checked = false,
   label,
   errors,
   checkboxClassName = '',

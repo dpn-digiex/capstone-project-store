@@ -23,7 +23,7 @@ const Receiver = () => {
         <span>Gọi người khác nhận hàng</span>
       </label>
       {receiver === 'other-receiver' ? (
-        <form className='grid gap-3 mt-2 p-2 bg-slate-500 rounded-md'>
+        <div className='grid gap-3 mt-2 p-2 bg-slate-500 rounded-md'>
           <div className='flex items-center gap-6'>
             <label htmlFor='receiver-male' className='flex items-center gap-1 cursor-pointer'>
               <input
@@ -75,7 +75,7 @@ const Receiver = () => {
               </label>
             </div>
           </div>
-        </form>
+        </div>
       ) : null}
     </div>
   )

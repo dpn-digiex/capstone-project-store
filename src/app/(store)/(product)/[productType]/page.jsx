@@ -14,7 +14,7 @@ const MAPPING_TITLE = {
 }
 
 const ProductTypePage = async ({ isDefaultPage = false, params }) => {
-  const bannerResponse = await fetch('http://localhost:3000//api/banner')
+  const bannerResponse = await fetch('http://localhost:3000/api/banner')
   const banners = await bannerResponse.json()
 
   const response = await fetch('http://localhost:3000/api/product', { cache: 'no-store' })
@@ -46,6 +46,7 @@ const ProductTypePage = async ({ isDefaultPage = false, params }) => {
             originPrice={product.originPrice}
             discount={product.discount}
             message={product.message}
+            redirectUrl={`${params?.productType}/${product.slug}`}
           />
         ))}
       </div>

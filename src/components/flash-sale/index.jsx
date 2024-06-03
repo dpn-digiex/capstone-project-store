@@ -13,8 +13,6 @@ import useCountdown from '@/hooks/useCountdown'
 import { formatCurrency } from '@/utils'
 
 import './index.style.css'
-import 'swiper/css'
-import 'swiper/css/navigation'
 
 import SliderButton from '../slider-button'
 

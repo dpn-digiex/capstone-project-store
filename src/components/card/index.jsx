@@ -7,9 +7,9 @@ import { formatCurrency } from '@/utils'
 
 import './index.style.css'
 
-const Card = ({ image, name, currentPrice, originPrice, discount, message, imageClass }) => {
+const Card = ({ image, name, currentPrice, originPrice, discount, message, redirectUrl = '', imageClass }) => {
   return (
-    <Link className='card p-8 rounded-3xl' href=''>
+    <Link className='card p-8 rounded-3xl' href={redirectUrl}>
       <div className='flex flex-col gap-6 items-center'>
         <Image
           alt={name}

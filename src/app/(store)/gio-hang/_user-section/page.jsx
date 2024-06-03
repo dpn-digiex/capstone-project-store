@@ -6,7 +6,7 @@ const UserInfoSection = () => {
   return (
     <div className='px-6 py-3 bg-[#515965] shadow-lg mt-1 text-xs'>
       <h3 className='text-sm font-bold'>Thông tin khách hàng</h3>
-      <form className='grid gap-3 mt-2'>
+      <div className='grid gap-3 mt-2'>
         <div className='flex items-center gap-6'>
           <label htmlFor='customer-male' className='flex items-center gap-1 cursor-pointer'>
             <input
@@ -56,7 +56,7 @@ const UserInfoSection = () => {
             </label>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   )
 }

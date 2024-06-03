@@ -25,6 +25,7 @@ const IPhoneSection = async () => {
             originPrice={product.originPrice}
             discount={product.discount}
             message={product.message}
+            redirectUrl={`/iphone/${product.slug}`}
           />
         ))}
       </Slider>

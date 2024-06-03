@@ -1,9 +1,16 @@
 'use client'
 import React from 'react'
 
-const ButtonAddToCard = ({ productData = '' }) => {
-  const handleAddToCard = () => {
-    console.log('Add to card', productData)
+import { addToCartService } from '@/services/cart-service'
+
+const ButtonAddToCard = ({ productData = {} }) => {
+  const handleAddToCard = async () => {
+    try {
+      const result = await addToCartService(productData)
+      if (result) console.log('Add successful')
+    } catch (error) {
+      console.log(error.message)
+    }
   }
 
   return (

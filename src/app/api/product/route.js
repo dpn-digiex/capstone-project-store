@@ -11,7 +11,8 @@ export async function GET() {
         currentPrice: 29890000,
         originPrice: 34990000,
         discount: '-14%',
-        message: 'Online giá rẻ quá'
+        message: 'Online giá rẻ quá',
+        slug: 'iphone-13'
       },
       {
         id: 2,
@@ -21,7 +22,8 @@ export async function GET() {
         currentPrice: 29890000,
         originPrice: 34990000,
         discount: '-14%',
-        message: 'Online giá rẻ quá'
+        message: 'Online giá rẻ quá',
+        slug: 'iphone-14'
       },
       {
         id: 3,
@@ -31,7 +33,8 @@ export async function GET() {
         currentPrice: 29890000,
         originPrice: 34990000,
         discount: '-14%',
-        message: 'Online giá rẻ quá'
+        message: 'Online giá rẻ quá',
+        slug: 'iphone-15'
       },
       {
         id: 4,
@@ -41,7 +44,8 @@ export async function GET() {
         currentPrice: 29890000,
         originPrice: 34990000,
         discount: '-14%',
-        message: 'Online giá rẻ quá'
+        message: 'Online giá rẻ quá',
+        slug: 'iphone-16'
       },
       {
         id: 5,
@@ -51,7 +55,8 @@ export async function GET() {
         currentPrice: 29890000,
         originPrice: 34990000,
         discount: '-14%',
-        message: 'Online giá rẻ quá'
+        message: 'Online giá rẻ quá',
+        slug: 'iphone-17'
       },
       {
         id: 6,
@@ -61,7 +66,8 @@ export async function GET() {
         currentPrice: 29890000,
         originPrice: 34990000,
         discount: '-14%',
-        message: 'Online giá rẻ quá'
+        message: 'Online giá rẻ quá',
+        slug: 'iphone-18'
       },
       {
         id: 7,
@@ -71,7 +77,8 @@ export async function GET() {
         currentPrice: 29890000,
         originPrice: 34990000,
         discount: '-14%',
-        message: 'Online giá rẻ quá'
+        message: 'Online giá rẻ quá',
+        slug: 'iphone-19'
       },
       {
         id: 8,
@@ -81,7 +88,8 @@ export async function GET() {
         currentPrice: 29890000,
         originPrice: 34990000,
         discount: '-14%',
-        message: 'Online giá rẻ quá'
+        message: 'Online giá rẻ quá',
+        slug: 'iphone-20'
       },
       {
         id: 9,
@@ -91,7 +99,8 @@ export async function GET() {
         currentPrice: 29890000,
         originPrice: 34990000,
         discount: '-14%',
-        message: 'Online giá rẻ quá'
+        message: 'Online giá rẻ quá',
+        slug: 'iphone-21'
       },
       {
         id: 10,
@@ -101,7 +110,8 @@ export async function GET() {
         currentPrice: 29890000,
         originPrice: 34990000,
         discount: '-14%',
-        message: 'Online giá rẻ quá'
+        message: 'Online giá rẻ quá',
+        slug: 'iphone-22'
       }
     ]
     return NextResponse.json(products, { status: 200 })

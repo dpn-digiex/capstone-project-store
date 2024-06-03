@@ -18,3 +18,13 @@ export const USER_API = {
   SIGNIN: '/auth/signin',
   LOGOUT: '/auth/logout'
 }
+
+export const LOCAL_STORE_CART = 'APP_CART'
+export const LOCAL_STORE_ACCESS_TOKEN = 'APP_ACCESS_TOKEN'
+
+export const BASE_API_URL = process.env.NEXT_APP_API_DOMAIN ?? 'http://localhost:2800/api/v1'
+
+export const ResponseStatus = {
+  success: 'Success',
+  error: 'Error'
+}

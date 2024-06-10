@@ -64,4 +64,86 @@ body {
       -4px -4px 8px rgba(134, 134, 134, 0.2),
       4px 4px 8px rgba(28, 28, 28, 0.4);
   }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    /* margin: 0.625rem; */
+    padding: 0.5em 1em;
+    border-radius: 0.25em;
+    cursor: pointer;
+    border: 0.125em solid;
+    font-weight: bold;
+    transition: 150ms ease;
+    user-select: none;
+
+    text-decoration: none;
+
+    outline: none;
+
+    background-color: var(--bg-clr, transparent);
+    color: var(--text-clr, #000000);
+    border-color: var(--bg-clr, #000000);
+  }
+
+  .btn:hover {
+    filter: brightness(0.98);
+  }
+
+  .btn:active {
+    transform: scale(0.9);
+  }
+
+  .btn:disabled,
+  .btn.disabled,
+  button:disabled,
+  button.disabled {
+    opacity: 0.75;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .no-bordered {
+    border: none !important;
+  }
+
+  .btn-circular {
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+  }
+
+  .btn-rounded {
+    border-radius: 100vh;
+  }
+
+  .btn-outlined:not(:hover) {
+    background-color: var(--text-clr);
+    color: var(--bg-clr);
+  }
+
+  .btn-primary {
+    --bg-clr: var(--primary-clr, #2271ff);
+    --text-clr: #ffffff;
+  }
+
+  .btn-light {
+    --bg-clr: var(--light-clr, #f8f9fa);
+    --text-clr: var(--dark-clr, #343a40);
+  }
+
+  .btn-dark {
+    --bg-clr: var(--dark-clr, #343a40);
+    --text-clr: var(--light-clr, #f8f9fa);
+  }
+
+  .btn-danger {
+    --bg-clr: var(--danger-clr, #dc3545);
+    --text-clr: #fff;
+  }
+
+  .btn-secondary {
+    --bg-clr: var(--secondary-clr, #4d84e2);
+    --text-clr: #fff;
+  }
 }

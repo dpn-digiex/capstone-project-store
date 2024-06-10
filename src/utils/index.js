@@ -2,6 +2,8 @@ import slugify from 'slugify'
 
 import { LOCAL_STORE_CART } from '@/constants'
 
+import { ValidationError } from './errors'
+
 export const convertSlugUrl = (str) => {
   return slugify(str, {
     lower: true,
@@ -93,4 +95,45 @@ export const getGenderTitle = (gender) => {
 export const concatString = (...data) => {
   const address = data.reduce((result, item) => (item ? result.concat(item) : result), [])
   return address.join(', ')
+}
+
+export const validateInput = (input) => {
+  if (input.value === '') return new ValidationError(input.name, 'This field is required')
+  switch (input.name) {
+    case 'email': {
+      const pattern =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      if (!pattern.test(input.value)) return new ValidationError(input.name, 'Invalid email format!')
+      break
+    }
+    case 'password': {
+      const lowerCaseTest = /(?=.*[a-z])/.test(input.value)
+      const upperCaseTest = /(?=.*[A-Z])/.test(input.value)
+      const digitTest = /(?=.*\d)/.test(input.value)
+      const specialTest = /(?=.*[#$@!%&*?])/.test(input.value)
+
+      if (!lowerCaseTest) {
+        return new ValidationError(input.name, 'Password must contain at least 1 lower case character')
+      }
+      if (!upperCaseTest) {
+        return new ValidationError(input.name, 'Password must contain at least 1 upper case character')
+      }
+      if (!digitTest) {
+        return new ValidationError(input.name, 'Password must contain at least 1 digit')
+      }
+      if (!specialTest) {
+        return new ValidationError(input.name, 'Password must contain at least 1 special character')
+      }
+      if (input.value.length < 8) {
+        return new ValidationError(input.name, 'Password must contain at least 8 characters')
+      }
+      if (input.value.length > 30) {
+        return new ValidationError(input.name, 'Password must contain at most 30 characters')
+      }
+      break
+    }
+    default:
+      return null
+  }
+  return null
 }

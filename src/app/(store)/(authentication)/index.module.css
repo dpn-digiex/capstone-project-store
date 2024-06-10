@@ -1,16 +1,15 @@
 .authentication {
   position: relative;
-  min-height: 95vh;
+  min-height: calc(100vh - var(--header-height, 60px));
   background-color: #ffffff;
   overflow: hidden;
-  margin-top: var(--header-height);
   transition: margin 200ms ease-in-out;
 }
 .authentication::before {
   content: '';
   position: absolute;
-  width: 120rem;
-  height: 120rem;
+  width: 100rem;
+  height: 100rem;
   border-radius: 50%;
   background: linear-gradient(-45deg, #4481eb, #04befe);
   top: -10%;
@@ -74,8 +73,9 @@
   color: #ffffff;
   border: 2px solid currentColor;
   font-size: 0.8rem;
-  width: 8.125rem;
+  /* width: 8.125rem; */
   height: 2.625rem;
+  @apply px-8;
 }
 .panelContainer .transparentBtn:hover {
   /* background-color: #ffffff; */

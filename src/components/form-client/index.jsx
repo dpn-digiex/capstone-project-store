@@ -8,23 +8,33 @@ import { ValidationError } from '@/utils/errors'
 
 import styles from './index.module.css'
 
-const FormClient = ({ children, className, validate, defaultValidate = false, onSubmit, header, footer, ...props }) => {
+const FormClient = ({
+  children,
+  className,
+  errorClassName,
+  validate,
+  defaultValidate = false,
+  onSubmit,
+  header,
+  footer,
+  compare = {},
+  ...props
+}) => {
   // [STATES]
-  const [errorList, setErrorList] = useState([])
+  const [errorList, setErrorList] = useState(React.Children.map(children, () => ''))
 
   // [HANDLER FUNCTIONS]
   const handleValidateForm = (e) => {
     if (!validate) return true
-    setErrorList(
-      Array.from(e.target).map((formControl) => {
-        if (!formControl.required) return null
-        const validateResult = validateInput(formControl)
-        if (getType(validateResult) === 'error') return validateResult.message
-        return validateResult
-      })
-    )
-    if (errorList.length > 0) {
-      if (errorList.every((error) => error === null)) return true
+    const newErrorList = Array.from(e.target).map((formControl) => {
+      if (!formControl.required) return null
+      const validateResult = validateInput(formControl, compare)
+      if (getType(validateResult) === 'error') return validateResult.message
+      return validateResult
+    })
+    setErrorList(newErrorList)
+    if (newErrorList.length > 0) {
+      if (newErrorList.every((error) => error === null)) return true
     }
     return false
   }
@@ -56,11 +66,12 @@ const FormClient = ({ children, className, validate, defaultValidate = false, on
             'data-invalid': !!errorList[index],
             validate,
             position: index,
+            compare: compare,
             setErrorList: setErrorList
           })}
           {errorList[index] && (
-            <span className={clsx(styles.errorMessage)}>
-              <MdOutlineReportProblem fontSize='small' sx={{ marginRight: '0.25rem' }} className={styles.errorIcon} />
+            <span className={clsx(styles.errorMessage, errorClassName)}>
+              <MdOutlineReportProblem size={16} className={styles.errorIcon} />
               {errorList[index]}
             </span>
           )}

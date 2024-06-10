@@ -38,14 +38,14 @@ const SignIn = () => {
       header={<FormHeader />}
       footer={<FormFooter />}
     >
-      <Input type='text' required placeholder='Username*'>
+      <Input type='text' required name='username' placeholder='Tên đăng nhập*'>
         <MdOutlinePerson />
       </Input>
       <Input
         type={showPassword === true ? 'text' : 'password'}
         required
+        placeholder='Mật khẩu*'
         name='password'
-        placeholder='Password*'
         suffix={<PasswordSuffix isShow={showPassword} setShow={setShowPassword} />}
       >
         <MdOutlineLock />
@@ -58,13 +58,13 @@ export default SignIn
 
 // [CUSTOM RENDERED COMPONENTS]
 const FormHeader = () => {
-  return <h2 className={styles.title}>Sign in</h2>
+  return <h2 className={styles.title}>Đăng nhập</h2>
 }
 const FormFooter = () => {
   return (
     <React.Fragment>
       <button type='submit' className={clsx('btn', 'btn-rounded', styles.solidBtn)}>
-        Login
+        Đăng nhập
       </button>
     </React.Fragment>
   )

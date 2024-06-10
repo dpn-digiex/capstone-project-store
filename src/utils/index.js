@@ -97,13 +97,13 @@ export const concatString = (...data) => {
   return address.join(', ')
 }
 
-export const validateInput = (input) => {
-  if (input.value === '') return new ValidationError(input.name, 'This field is required')
-  switch (input.name) {
+export const validateInput = (input, compare = {}) => {
+  if (input.value === '') return new ValidationError(input.name, 'Vui lòng nhập vào trường này!')
+  switch (input.dataset.validateType) {
     case 'email': {
       const pattern =
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      if (!pattern.test(input.value)) return new ValidationError(input.name, 'Invalid email format!')
+      if (!pattern.test(input.value)) return new ValidationError(input.name, 'Email không đúng định dạng!')
       break
     }
     case 'password': {
@@ -113,23 +113,27 @@ export const validateInput = (input) => {
       const specialTest = /(?=.*[#$@!%&*?])/.test(input.value)
 
       if (!lowerCaseTest) {
-        return new ValidationError(input.name, 'Password must contain at least 1 lower case character')
+        return new ValidationError(input.name, 'Mật khẩu phải chứa ít nhất 1 ký tự chữ cái in thường')
       }
       if (!upperCaseTest) {
-        return new ValidationError(input.name, 'Password must contain at least 1 upper case character')
+        return new ValidationError(input.name, 'Mật khẩu phải chứa ít nhất 1 ký tự chữ cái in hoa')
       }
       if (!digitTest) {
-        return new ValidationError(input.name, 'Password must contain at least 1 digit')
+        return new ValidationError(input.name, 'Mật khẩu phải chứa ít nhất 1 ký tự số')
       }
       if (!specialTest) {
-        return new ValidationError(input.name, 'Password must contain at least 1 special character')
+        return new ValidationError(input.name, 'Mật khẩu phải chứa ít nhất 1 ký tự đặc biệt')
       }
       if (input.value.length < 8) {
-        return new ValidationError(input.name, 'Password must contain at least 8 characters')
+        return new ValidationError(input.name, 'Mật khẩu phải chứa tối thiểu 8 ký tự')
       }
       if (input.value.length > 30) {
-        return new ValidationError(input.name, 'Password must contain at most 30 characters')
+        return new ValidationError(input.name, 'Mật khẩu phải chứa tối đa 30 ký tự')
       }
+      break
+    }
+    case 'confirm-password': {
+      if (input.value !== compare.password) return new ValidationError(input.name, 'Mật khẩu không trùng khớp')
       break
     }
     default:

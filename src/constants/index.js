@@ -1,3 +1,6 @@
+import { FaClipboardList } from 'react-icons/fa'
+import { MdLocationOn, MdLock, MdPerson, MdPhoto } from 'react-icons/md'
+
 export const ROUTES_APP = {
   ROOT: '/',
   HOME_PAGE: '/trang-chu',
@@ -35,3 +38,35 @@ export const CacheKey = {
   cart: 'CART',
   checkout: 'CHECKOUT'
 }
+export const PROFILE_MENU = [
+  {
+    id: 'personal',
+    title: 'Thông tin tài khoản',
+    path: `${ROUTES_APP.PROFILE}/thong-tin-tai-khoan`,
+    icon: <MdPerson size={24} />
+  },
+  {
+    id: 'shipping-address',
+    title: 'Địa chỉ nhận hàng',
+    path: `${ROUTES_APP.PROFILE}/dia-chi-nhan-hang`,
+    icon: <MdLocationOn size={24} />
+  },
+  {
+    id: 'shopping-history',
+    title: 'Đơn đặt hàng',
+    path: `${ROUTES_APP.PROFILE}/don-dat-hang`,
+    icon: <FaClipboardList size={24} />
+  },
+  {
+    id: 'change-password',
+    title: 'Đổi mật khẩu',
+    path: `${ROUTES_APP.PROFILE}/doi-mat-khau`,
+    icon: <MdLock size={24} />
+  },
+  {
+    id: 'avatar',
+    title: 'Ảnh đại diện',
+    path: `${ROUTES_APP.PROFILE}/anh-dai-dien`,
+    icon: <MdPhoto size={24} />
+  }
+]

@@ -1,6 +1,10 @@
 import React, { useId } from 'react'
 import clsx from 'clsx'
 
+import Select from '@/components/select'
+
+import styles from './index.module.css'
+
 const InputGroup = ({
   label,
   type = 'text',
@@ -16,6 +20,20 @@ const InputGroup = ({
 }) => {
   const inputId = useId()
 
+  if (type === 'select')
+    return (
+      <div className='flex flex-col gap-1'>
+        <span className='text-sm'>{label}</span>
+        <Select
+          options={options}
+          renderKey='label'
+          valueKey='value'
+          placeholder={placeholder}
+          name={name}
+          className={styles['input-select']}
+        />
+      </div>
+    )
   if (type === 'radio')
     return (
       <div className='flex flex-col gap-1'>

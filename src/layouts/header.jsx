@@ -1,5 +1,6 @@
 'use client'
 import React from 'react'
+import { GoPerson } from 'react-icons/go'
 import { HiOutlineShoppingBag } from 'react-icons/hi2'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -83,6 +84,11 @@ const Header = () => {
                   {cartLength}
                 </span>
               )}
+            </div>
+          </Link>
+          <Link href={ROUTES_APP.SIGN_IN}>
+            <div className='relative w-9 h-9 rounded-full flex items-center justify-center bg-[#2f3033] hover:bg-[#545454] cursor-pointer'>
+              <GoPerson />
             </div>
           </Link>
         </div>

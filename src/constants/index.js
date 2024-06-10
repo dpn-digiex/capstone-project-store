@@ -11,7 +11,10 @@ export const ROUTES_APP = {
   },
   BLOG: '/blog',
   CART: '/gio-hang',
-  CHECKOUT: '/thanh-toan'
+  CHECKOUT: '/thanh-toan',
+  SIGN_IN: '/dang-nhap',
+  SIGN_UP: '/dang-ky',
+  PROFILE: '/trang-ca-nhan'
 }
 
 export const USER_API = {

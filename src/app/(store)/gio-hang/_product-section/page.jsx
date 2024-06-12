@@ -10,24 +10,37 @@ import { formatCurrency, getType } from '@/utils'
 
 import CartItem from './_item/page'
 
+const getVariant = (variantId, variantOptionId, product) => {
+  const selectedVariant = product.variants?.find((variant) => variant._id === variantId)
+  const selectedOption = selectedVariant?.options?.find((option) => option._id === variantOptionId)
+  return { variant: selectedVariant, option: selectedOption }
+}
+
 const ProductSection = ({ cart = [], refreshCart, onRefreshCart, selectedItems, onSelectItem }) => {
   const { isLoading, response: productList } = useFetch(
-    () => Promise.all(cart.map((item) => getProductDetailService(item.id))),
+    () => Promise.all(cart.map((item) => getProductDetailService(item._id))),
     cart
   )
   const cartTotal = useMemo(() => {
     if (getType(productList) === 'array') {
       return cart.reduce((total, currentItem) => {
-        const itemPrice = productList.find((item) => item.id === currentItem.id)?.price ?? 0
+        const cartItem = productList.find((item) => item._id === currentItem._id)
+        const selectedVariant = cartItem?.variants?.find((variant) =>
+          cart.some((item) => item.variantId === variant._id)
+        )
+        const selectedVariantOption = selectedVariant?.options?.find((option) =>
+          cart.some((item) => item.variantOptionId === option._id)
+        )
+        const itemPrice = selectedVariantOption?.price
         return total + currentItem.quantity * itemPrice
       }, 0)
     }
     return 0
   }, [productList, cart])
 
-  const handleDeleteItem = async (productId) => {
+  const handleDeleteItem = async (product) => {
     try {
-      const result = await removeCartItemService(productId)
+      const result = await removeCartItemService(product)
       if (result === true) {
         onRefreshCart?.()
       }
@@ -36,9 +49,9 @@ const ProductSection = ({ cart = [], refreshCart, onRefreshCart, selectedItems, 
     }
   }
   const handleUpdateQuantity = useCallback(
-    async (productId, quantity) => {
+    async (product, quantity) => {
       try {
-        const result = await changeQuantityService(productId, quantity)
+        const result = await changeQuantityService(product, quantity)
         if (result) onRefreshCart?.()
       } catch (error) {
         console.log(error.message)
@@ -52,12 +65,20 @@ const ProductSection = ({ cart = [], refreshCart, onRefreshCart, selectedItems, 
     <div className='p-6 bg-[#515965] rounded-t-lg shadow-lg'>
       <section>
         <div className='text-xs'>
-          {productList.map((product, index) => (
+          {cart.map((product, index) => (
             <CartItem
-              key={product.id}
+              key={'' + product._id + product.variantId + product.variantOptionId}
               onRemove={handleDeleteItem}
-              product={product}
-              quantity={cart.find((item) => item.id === product.id)?.quantity}
+              product={{
+                ...product,
+                ...productList.find((item) => item._id === product._id),
+                variant: getVariant(
+                  product.variantId,
+                  product.variantOptionId,
+                  productList.find((item) => item._id === product._id)
+                )
+              }}
+              quantity={product?.quantity}
               className={clsx({ peer: index === 0 })}
               onUpdate={handleUpdateQuantity}
               selectedItems={selectedItems}

@@ -23,9 +23,12 @@ const CartPage = () => {
   const [selectedItems, setSelectedItems] = useState([])
   const router = useRouter()
 
-  const handleSelectItem = (e, productId) => {
-    if (e.target.checked === true) return setSelectedItems((prev) => prev.concat(productId))
-    return setSelectedItems((prev) => prev.filter((itemId) => itemId !== productId))
+  const handleSelectItem = (e, product) => {
+    if (e.target.checked === true)
+      return setSelectedItems((prev) => prev.concat(`${product._id}-${product.variantId}-${product.variantOptionId}`))
+    return setSelectedItems((prev) =>
+      prev.filter((item) => item !== `${product._id}-${product.variantId}-${product.variantOptionId}`)
+    )
   }
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -35,8 +38,18 @@ const CartPage = () => {
       if (data === undefined) return
       const cloneData = JSON.parse(JSON.stringify(data))
       const transformCartItems = cloneData['cart-items'].map((item) => {
-        const [id, quantity] = item.split(':')
-        return { id, quantity: +quantity }
+        const [variantInfo, quantity] = item.split(':')
+        const [_id, name, variantId, variantOptionId, variantName, variantColor, mainImageUrl] = variantInfo.split('-')
+        return {
+          _id,
+          name,
+          mainImageUrl: window.atob(mainImageUrl),
+          variantId,
+          variantOptionId,
+          variantName,
+          variantColor,
+          quantity: +quantity
+        }
       })
       cloneData['cart-items'] = transformCartItems
       return cloneData
@@ -46,7 +59,8 @@ const CartPage = () => {
   }
 
   useEffect(() => {
-    if (getType(cartData) === 'array') setSelectedItems(cartData.map((item) => item.id))
+    if (getType(cartData) === 'array')
+      setSelectedItems(cartData.map((item) => `${item._id}-${item.variantId}-${item.variantOptionId}`))
   }, [cartData])
 
   if (isLoading === true && refreshCart === 0) return <Loading />

@@ -145,13 +145,13 @@ const Suggestions = ({ productId = '', productData = null }) => {
           <div className='flex flex-wrap justify-between items-center'>
             <div className='w-1/5 flex items-center justify-between'>
               <div className='flex flex-col items-center gap-1'>
-                <Image src={productData.image} alt='image-product' width={170} height={170} />
+                <Image src={productData.mainImageUrl} alt='image-product' width={170} height={170} />
                 <p className='text-sm text-center break-words line-clamp-3 text-black'>{productData.name}</p>
-                <p className='text-md font-bold text-black'>{formatCurrency(productData.currentPrice)}</p>
+                {/* <p className='text-md font-bold text-black'>{formatCurrency(productData.currentPrice)}</p>
                 <div className='flex gap-2'>
                   <p className='text-sm text-[#323232] line-through'>{formatCurrency(productData.price)}</p>
                   <p className='text-sm text-[#323232]'>{productData.discount}%</p>
-                </div>
+                </div> */}
               </div>
               <LuPlus size={32} stroke='#A1A5A8' />
             </div>

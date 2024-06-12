@@ -5,23 +5,19 @@ import { MdOutlineWifiProtectedSetup } from 'react-icons/md'
 import { TbTruckDelivery } from 'react-icons/tb'
 import Link from 'next/link'
 
-import ButtonLink from '@/components/button-link'
 import Comments from '@/components/comments'
 import Reviews from '@/components/reviews'
 import SliderGallery from '@/components/slider-gallery'
 import StatusLabel from '@/components/status-label'
-import { formatCurrency } from '@/utils'
+import { getProductDetailService } from '@/services/product-service'
 
-import ListColors from './_sections/list-colors'
-import ListVariants from './_sections/list-variants'
 import Suggestions from './_sections/suggestions'
-import ButtonAddToCard from './components/btnAddToCard'
+import VariantInfo from './_sections/variant-info'
 import styles from './index.module.css'
-import { RAW_PRODUCT_DETAIL } from './raw-data'
 
-const ProductDetailPage = async ({ params, searchParams }) => {
-  const product = RAW_PRODUCT_DETAIL
-  const { version = null, color = null } = searchParams
+const ProductDetailPage = async ({ params }) => {
+  const { productId: productSlug } = params
+  const product = await getProductDetailService('6667e311614afe162269e6cc')
 
   return (
     <div className={styles['page-container']}>
@@ -36,38 +32,7 @@ const ProductDetailPage = async ({ params, searchParams }) => {
               {product?.status && <StatusLabel label={product.status} />}
             </div>
             <span className='text-xs'>Giá và khuyến mãi tại: Hồ Chí Minh</span>
-            <div className='flex flex-wrap gap-2'>
-              <span className='text-[1.5rem] font-bold'>{formatCurrency(product.currentPrice)}</span>
-              <span className='text-[1.375rem] line-through'>{formatCurrency(product.price)}</span>
-              <span className='text-[1.375rem]'>{`${product.discount}%`}</span>
-            </div>
-            {product.variantOpts.length > 0 && <ListVariants list={product.variantOpts} />}
-            {product.colorOpts.length > 0 && <ListColors list={product.colorOpts} />}
-            <div className='flex flex-col bg-[#2f3033] p-4 rounded-[10px]'>
-              <p className='text-sm font-bold'>Khuyễn mãi</p>
-              <p className='text-xs'>Giá và khuyến mãi dự kiến áp dụng đến 23:00 | 01/05</p>
-              <div className='border-b-[1px] border-solid border-[#414141] my-2' />
-              <li className='text-xs'>
-                Nhập mã VNPAYTGDD2 giảm ngay 1% (tối đa 200.000đ) khi thanh toán qua VNPAY-QR, áp dụng cho đơn hàng từ 3
-                Triệu
-                <Link href='/' className='text-skyBlue cursor-pointer'>
-                  (Xem chi tiết tại đây)
-                </Link>
-              </li>
-            </div>
-
-            <div className='flex gap-4'>
-              <ButtonLink
-                href='/payment'
-                customStyle={'w-full'}
-                customStyleText='text-[1rem] !font-bold'
-                mode='primary'
-              >
-                Mua ngay
-              </ButtonLink>
-
-              <ButtonAddToCard productData={product} />
-            </div>
+            <VariantInfo product={product} />
             <div className='flex flex-col gap-2'>
               <div className='flex gap-2'>
                 <div className='w-[32px] h-[32px] flex items-center justify-center'>
@@ -121,9 +86,9 @@ const ProductDetailPage = async ({ params, searchParams }) => {
           </div>
         </div>
       </section>
-      <Suggestions productId={product.id} productData={product} />
-      <Reviews productId={product.id} productData={product} />
-      <Comments productId={product.id} productData={product} />
+      <Suggestions productId={product._id} productData={product} />
+      <Reviews productId={product._id} productData={product} />
+      <Comments productId={product._id} productData={product} />
     </div>
   )
 }

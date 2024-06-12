@@ -6,9 +6,7 @@ import Card from '@/components/card'
 import Slider from '@/components/slider'
 import { ROUTES_APP } from '@/constants'
 
-const IPhoneSection = async () => {
-  const response = await fetch('http://localhost:3000/api/product', { cache: 'no-store' })
-  const productList = await response.json()
+const IPhoneSection = async ({ productList = [] }) => {
   return (
     <div className=''>
       <Link href={ROUTES_APP.PRODUCT.IPHONE} className='flex items-end justify-center py-12'>
@@ -18,11 +16,11 @@ const IPhoneSection = async () => {
       <Slider>
         {productList.map((product) => (
           <Card
-            key={product.id}
-            image={product.image}
+            key={product._id}
+            image={product.mainImageUrl}
             name={product.name}
             currentPrice={product.currentPrice}
-            originPrice={product.originPrice}
+            originPrice={product.price}
             discount={product.discount}
             message={product.message}
             redirectUrl={`/iphone/${product.slug}`}

@@ -12,6 +12,7 @@ export const convertSlugUrl = (str) => {
 }
 
 export const formatCurrency = (price) => {
+  if (getType(price) !== 'number' || isNaN(price)) return 'Giá đang cập nhật...'
   return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price)
 }
 
@@ -40,17 +41,29 @@ export const addToLocalCart = (product) => {
     let localCart = getLocalStore(LOCAL_STORE_CART)
     if (getType(localCart) !== 'array') localCart = []
 
-    const existingItem = localCart.find((item) => item.id === product.id)
+    const existingItem = localCart.find(
+      (item) =>
+        item._id === product._id &&
+        item.variantId === product.variantId &&
+        item.variantOptionId === product.variantOptionId
+    )
     if (existingItem !== undefined) {
       const newCart = localCart.map((item) => {
-        if (item.id !== product.id) return item
-        return { ...item, quantity: item.quantity + (product.quantity ?? 1) }
+        if (
+          item._id === product._id &&
+          item.variantId === product.variantId &&
+          item.variantOptionId === product.variantOptionId
+        )
+          return { ...item, quantity: item.quantity + (product.quantity ?? 1) }
+        return item
       })
       setLocalStore(LOCAL_STORE_CART, newCart)
     } else {
       const newCart = localCart.concat({
-        id: product.id,
-        quantity: product.quantity ?? 1
+        _id: product._id,
+        quantity: product.quantity ?? 1,
+        variantId: product.variantId,
+        variantOptionId: product.variantOptionId
       })
       setLocalStore(LOCAL_STORE_CART, newCart)
     }

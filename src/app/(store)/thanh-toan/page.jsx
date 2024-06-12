@@ -11,7 +11,6 @@ import PaymentMethods from './_payment-methods/page'
 
 const CheckoutPage = () => {
   const checkoutData = CacheUtil.getCachedData(CacheKey.checkout) ?? {}
-  console.log(checkoutData)
   const handleSubmit = (e) => {
     e.preventDefault()
   }
@@ -81,36 +80,18 @@ const CheckoutPage = () => {
               <span className=''>Giao trước 14h00 ngày 04/06/2024</span>
             </div>
             <div className='p-2 rounded-md border border-solid border-slate-400 flex flex-col'>
-              <div className='flex gap-2 py-2 peer'>
-                <Image
-                  src={
-                    'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png'
-                  }
-                  alt=''
-                  width={80}
-                  height={120}
-                />
-                <div className='flex flex-col gap-2'>
-                  <span>iPhone 15 Pro Max 256GB</span>
-                  <span>Màu: Titan xanh</span>
-                  <span>Số lượng: 1</span>
+              {checkoutData['cart-items']?.map((item) => (
+                <div key={'' + item._id + item.variantId + item.variantOptionId} className='flex gap-2 py-2 peer'>
+                  <Image src={item.mainImageUrl} alt={item.name} width={80} height={120} />
+                  <div className='flex flex-col gap-2'>
+                    <span>
+                      ${item.name} - {item.variantName}
+                    </span>
+                    <span>Màu: {item.variantColor}</span>
+                    <span>Số lượng: {item.quantity}</span>
+                  </div>
                 </div>
-              </div>
-              <div className='flex gap-2 py-2 peer-[]:border-t border-slate-400'>
-                <Image
-                  src={
-                    'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png'
-                  }
-                  alt=''
-                  width={80}
-                  height={120}
-                />
-                <div className='flex flex-col gap-2'>
-                  <span>iPhone 15 Pro Max 256GB</span>
-                  <span>Màu: Titan xanh</span>
-                  <span>Số lượng: 1</span>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>

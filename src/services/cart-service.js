@@ -37,19 +37,28 @@ export const addToCartService = async (product) => {
   }
 }
 
-export const removeCartItemService = async (productId) => {
+export const removeCartItemService = async (product) => {
+  console.log(product)
   try {
     const isLoggedIn = getLocalStore(LOCAL_STORE_ACCESS_TOKEN)
     if (isLoggedIn === null) {
       const localCart = getLocalStore(LOCAL_STORE_CART)
       if (getType(localCart) !== 'array') throw new Error('Invalid cart')
 
-      const newLocalCart = localCart.filter((item) => item.id !== productId)
+      const newLocalCart = localCart.filter(
+        (item) =>
+          item._id !== product._id ||
+          item.variantId !== product.variantId ||
+          item.variantOptionId !== product.variantOptionId
+      )
       setLocalStore(LOCAL_STORE_CART, newLocalCart)
       return true
     }
 
-    const response = await fetch(`${BASE_API_URL}/cart/remove/${productId}`, { method: 'POST', credentials: 'include' })
+    const response = await fetch(`${BASE_API_URL}/cart/remove/${product._id}`, {
+      method: 'POST',
+      credentials: 'include'
+    })
     const data = await response.json()
     if (data.status === ResponseStatus.error) throw new Error(data.message)
 
@@ -59,26 +68,31 @@ export const removeCartItemService = async (productId) => {
     return false
   }
 }
-export const changeQuantityService = async (productId, quantity) => {
+export const changeQuantityService = async (product, quantity) => {
   const isLoggedIn = getLocalStore(LOCAL_STORE_ACCESS_TOKEN)
   if (isLoggedIn === null) {
     const localCart = getLocalStore(LOCAL_STORE_CART)
     if (getType(localCart) !== 'array') throw new Error('Invalid cart')
 
     const newLocalCart = localCart.map((item) => {
-      if (item.id !== productId) return item
-      return {
-        ...item,
-        quantity: quantity
-      }
+      if (
+        item._id === product._id &&
+        item.variantId === product.variant?.variant?._id &&
+        item.variantOptionId === product.variant?.option?._id
+      )
+        return {
+          ...item,
+          quantity: quantity
+        }
+      return item
     })
     setLocalStore(LOCAL_STORE_CART, newLocalCart)
     return true
   }
-  const response = await fetch(`${BASE_API_URL}/cart/update/${productId}`, {
+  const response = await fetch(`${BASE_API_URL}/cart/update/${product._id}`, {
     method: 'POST',
     credentials: 'include',
-    body: { productId, quantity }
+    body: { productId: product._id, quantity }
   })
   const data = await response.json()
   if (data.status === ResponseStatus.error) throw new Error(data.message)

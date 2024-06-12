@@ -5,7 +5,7 @@ import { CacheKey } from '@/constants'
 import { addToCartService } from '@/services/cart-service'
 import CacheUtil from '@/utils/cache'
 
-const ButtonAddToCard = ({ productData = {} }) => {
+const ButtonAddToCard = ({ productData = {}, disabled }) => {
   const handleAddToCard = async () => {
     try {
       const result = await addToCartService(productData)
@@ -16,7 +16,7 @@ const ButtonAddToCard = ({ productData = {} }) => {
   }
 
   return (
-    <button type={'button'} className={'w-full'} onClick={handleAddToCard}>
+    <button type={'button'} className={'w-full'} onClick={handleAddToCard} disabled={disabled}>
       <div
         className={
           'cursor-pointer flex px-6 h-[60px] justify-center items-center bg-[#0071e3] hover:bg-skyBlue rounded-[12px]'

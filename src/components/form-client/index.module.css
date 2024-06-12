@@ -6,14 +6,15 @@
   padding: 0 5rem;
   overflow: hidden;
 }
-.inputGroups {
+.inputGroups:not(:has(*[data-max-w='none'])) {
   width: 100%;
   max-width: 23.75rem;
 }
 .errorMessage {
   display: flex;
   align-items: center;
-  color: var(--danger-clr, #dc3545);
+  gap: 0.25rem;
+  color: var(--error-message-clr, #dc3545);
   font-size: 0.875rem;
   font-style: italic;
   margin-left: 0.625rem;
@@ -21,6 +22,9 @@
   animation-duration: 200ms;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
+}
+.errorIcon {
+  fill: var(--error-message-clr, #dc3545);
 }
 @keyframes scaleUp {
   0% {

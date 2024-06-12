@@ -99,7 +99,7 @@ const Select = ({
       <ul
         className={clsx(
           'absolute top-[calc(100%+0.25rem)] left-0 transition-[transform,opacity,visibility] duration-150 ease-linear origin-top',
-          'max-h-40 min-w-48 list-none overflow-auto bg-inherit p-2 rounded-md z-50 shadow-md select-dropdown',
+          'max-h-40 min-w-48 list-none overflow-auto bg-inherit p-2 rounded-md z-50 shadow-md select-dropdown w-full',
           {
             'scale-y-0 opacity-0 invisible': !expand,
             'visible scale-y-100 opacity-100': expand
@@ -132,7 +132,7 @@ const Select = ({
             </li>
           ))
         ) : (
-          <div className='flex items-center justify-center p-1'>
+          <div className='flex items-center justify-center p-1 w-full'>
             <p className='text-white/50'>{emptyPlaceholder}</p>
           </div>
         )}

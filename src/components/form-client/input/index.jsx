@@ -5,15 +5,15 @@ import { validateInput } from '@/utils'
 
 import styles from './index.module.css'
 
-export default function Input({ children, validate, position, setErrorList, suffix, ...props }) {
+export default function Input({ children, validate, position, setErrorList, suffix, compare, ...props }) {
   // [STATES]
   const inputId = useId()
 
   // [HANDLER FUNCTIONS]
   function handleBlurInput(e) {
     if (!validate) return
-    const validateRefult = validateInput(e.target)
-    const errorMessage = validateRefult ? validateRefult.message : validateRefult
+    const validateResult = validateInput(e.target, compare)
+    const errorMessage = validateResult ? validateResult.message : validateResult
     setErrorList((prev) => {
       prev.splice(position, 1, errorMessage)
       return [...prev]

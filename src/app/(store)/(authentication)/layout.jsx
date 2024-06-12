@@ -20,7 +20,7 @@ export default function AuthLayout({ children }) {
   return (
     <React.Fragment>
       <div
-        className={clsx(styles.authentication, {
+        className={clsx('scale-screen', styles.authentication, {
           [styles.signUpMode]: isSignUp
         })}
       >
@@ -35,14 +35,17 @@ export default function AuthLayout({ children }) {
         <div className={styles.panelContainer}>
           <div className={clsx(styles.panel, styles.leftPanel)}>
             <div className={styles.content}>
-              <h3 className={styles.greeting}>Good to Have You Back!</h3>
-              <p className={styles.description}>Your journey continues here. Log in to your account.</p>
+              <h3 className={styles.greeting}>Chào mừng quay trở lại!</h3>
+              <p className={styles.description}>
+                Hành trình của bạn tiếp tục tại đây. Đăng nhập vào tài khoản của bạn.
+              </p>
+              <p className='mb-2 text-sm'>Nếu bạn chưa có tài khoản, hãy trở thành thành viên của chúng tôi.</p>
               <Link
                 href={ROUTES_APP.SIGN_UP}
-                className={clsx('btn', 'btn-rounded', styles.transparentBtn)}
+                className={clsx('btn btn-rounded', styles.transparentBtn)}
                 onClick={() => setIsSignUp(true)}
               >
-                Sign up
+                Đi tới đăng ký
               </Link>
             </div>
             <Image src={loginSVG} alt='Rocket SVG' className={styles.image} width={1140} height={788} priority />
@@ -50,14 +53,17 @@ export default function AuthLayout({ children }) {
 
           <div className={clsx(styles.panel, styles.rightPanel)}>
             <div className={styles.content}>
-              <h3 className={styles.greeting}>To be one of us</h3>
-              <p className={styles.description}>Sign up to unlock all the features and start your adventure with us.</p>
+              <h3 className={styles.greeting}>Trở thành thành viên của chúng tôi</h3>
+              <p className={styles.description}>
+                Đăng ký để mở khóa tất cả các tính năng và bắt đầu cuộc phiêu lưu của bạn với chúng tôi.
+              </p>
+              <p className='mb-2 text-sm'>Bạn đã sẵn sàng cho chuyến phiêu lưu?</p>
               <Link
                 href={ROUTES_APP.SIGN_IN}
-                className={clsx('btn', 'btn-rounded', styles.transparentBtn)}
+                className={clsx('btn btn-rounded', styles.transparentBtn)}
                 onClick={() => setIsSignUp(false)}
               >
-                Sign in
+                Đi tới đăng nhập
               </Link>
             </div>
             <Image src={registerSVG} alt='Desk SVG' className={styles.image} width={1140} height={788} priority />

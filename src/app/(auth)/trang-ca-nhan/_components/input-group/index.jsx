@@ -22,7 +22,7 @@ const InputGroup = ({
 
   if (type === 'select')
     return (
-      <div className='flex flex-col gap-1'>
+      <div className='flex flex-col gap-1 w-full' data-max-w='none'>
         <span className='text-sm'>{label}</span>
         <Select
           options={options}
@@ -36,7 +36,7 @@ const InputGroup = ({
     )
   if (type === 'radio')
     return (
-      <div className='flex flex-col gap-1'>
+      <div className='flex flex-col gap-1' data-max-w='none'>
         <span className='text-sm'>{label}</span>
         <div className='flex items-center gap-4'>
           {options.map((option) => (
@@ -58,7 +58,7 @@ const InputGroup = ({
       </div>
     )
   return (
-    <div className='flex flex-col gap-1'>
+    <div className='flex flex-col gap-1' data-max-w='none'>
       <label htmlFor={inputId} className='text-sm'>
         {label}
       </label>
@@ -71,7 +71,8 @@ const InputGroup = ({
         className={clsx(
           'text-sm py-2 px-4 bg-none outline-none',
           'border border-slate-300 bg-slate-400',
-          'rounded-md read-only:opacity-50 read-only:pointer-events-none'
+          'rounded-md read-only:opacity-50 read-only:pointer-events-none',
+          'placeholder:text-slate-300'
         )}
         {...props}
       />

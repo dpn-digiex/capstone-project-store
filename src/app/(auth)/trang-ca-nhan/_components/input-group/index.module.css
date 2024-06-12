@@ -1,3 +1,3 @@
 .input-select.input-select {
-  @apply bg-slate-400 border border-slate-300 text-sm p-0.5;
+  @apply bg-slate-400 border border-slate-300 text-sm p-0.5 w-full;
 }

@@ -6,7 +6,7 @@
   padding: 0 5rem;
   overflow: hidden;
 }
-.inputGroups {
+.inputGroups:not(:has(*[data-max-w='none'])) {
   width: 100%;
   max-width: 23.75rem;
 }

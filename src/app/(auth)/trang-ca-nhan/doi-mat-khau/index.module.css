@@ -1,0 +1,7 @@
+.profile-change-password.profile-change-password {
+  @apply grid grid-cols-1 p-0 gap-y-6;
+}
+.error-message.error-message {
+  --error-message-clr: #ff7d7d;
+  @apply m-0;
+}

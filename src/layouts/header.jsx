@@ -3,6 +3,7 @@ import React from 'react'
 import { GoPerson } from 'react-icons/go'
 import { HiOutlineShoppingBag } from 'react-icons/hi2'
 import clsx from 'clsx'
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -51,7 +52,14 @@ const Header = () => {
       <div className='container h-full flex items-center justify-between '>
         <div className='mr-12'>
           <ButtonLink href='/' customStyle='justify-start px-0 min-w-25 max-w-[200px]'>
-            LOGO_STORE
+            <div className='flex items-center'>
+              <Image
+                src='https://res.cloudinary.com/dgynzitgy/image/upload/v1718315464/capstone-project-cloud/panel/ectqc4orqpxn9x3fvizd.png'
+                alt='logo-text'
+                width={100}
+                height={30}
+              />
+            </div>
           </ButtonLink>
         </div>
         <div className='flex items-center'>

@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast'
 import { Inter } from 'next/font/google'
 
 import Footer from '@/layouts/footer'
@@ -14,6 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body className={inter.className}>
+        <Toaster position='bottom-right' />
         <div className='w-full h-screen'>
           <Header />
           <div className='min-h-[50vh]'>{children}</div>

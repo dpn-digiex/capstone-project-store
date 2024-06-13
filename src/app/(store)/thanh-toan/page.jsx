@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { CacheKey } from '@/constants'
-import { concatString, getGenderTitle } from '@/utils'
+import { concatString, formatCurrency, getGenderTitle } from '@/utils'
 import CacheUtil from '@/utils/cache'
 
 import PaymentMethods from './_payment-methods/page'
@@ -62,7 +62,7 @@ const CheckoutPage = () => {
             </li>
             <li>
               <div className='inline-flex items-center gap-1'>
-                <span className='font-bold'>Tổng tiền:</span>
+                <span className='font-bold'>Tổng tiền: {formatCurrency(checkoutData['total'])}</span>
               </div>
             </li>
           </ul>
@@ -85,7 +85,7 @@ const CheckoutPage = () => {
                   <Image src={item.mainImageUrl} alt={item.name} width={80} height={120} />
                   <div className='flex flex-col gap-2'>
                     <span>
-                      ${item.name} - {item.variantName}
+                      {item.name} - {item.variantName}
                     </span>
                     <span>Màu: {item.variantColor}</span>
                     <span>Số lượng: {item.quantity}</span>

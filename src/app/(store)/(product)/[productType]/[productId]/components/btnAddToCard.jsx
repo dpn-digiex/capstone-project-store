@@ -1,5 +1,6 @@
 'use client'
 import React from 'react'
+import { toast } from 'react-hot-toast'
 
 import { CacheKey } from '@/constants'
 import { addToCartService } from '@/services/cart-service'
@@ -9,7 +10,10 @@ const ButtonAddToCard = ({ productData = {}, disabled }) => {
   const handleAddToCard = async () => {
     try {
       const result = await addToCartService(productData)
-      if (result) CacheUtil.setCachedData(CacheKey.cart)
+      if (result) {
+        CacheUtil.setCachedData(CacheKey.cart)
+        toast.success('Add to cart successful')
+      }
     } catch (error) {
       console.log(error.message)
     }

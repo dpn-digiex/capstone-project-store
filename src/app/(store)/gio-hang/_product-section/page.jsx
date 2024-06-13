@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import Loading from '@/app/loading'
 import useFetch from '@/hooks/useFetch'
 import { changeQuantityService, removeCartItemService } from '@/services/cart-service'
-import { getProductDetailService } from '@/services/product-service'
+import { getProductByIdService } from '@/services/product-service'
 import { formatCurrency, getType } from '@/utils'
 
 import CartItem from './_item/page'
@@ -18,7 +18,7 @@ const getVariant = (variantId, variantOptionId, product) => {
 
 const ProductSection = ({ cart = [], refreshCart, onRefreshCart, selectedItems, onSelectItem }) => {
   const { isLoading, response: productList } = useFetch(
-    () => Promise.all(cart.map((item) => getProductDetailService(item._id))),
+    () => Promise.all(cart.map((item) => getProductByIdService(item._id))),
     cart
   )
   const cartTotal = useMemo(() => {

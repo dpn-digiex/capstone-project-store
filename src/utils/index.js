@@ -154,3 +154,13 @@ export const validateInput = (input, compare = {}) => {
   }
   return null
 }
+
+export const getQueryString = (options = {}) => {
+  const optionsType = getType(options)
+  if (optionsType !== 'object') return ''
+  const optionKeys = Object.keys(options)
+  const queryString = optionKeys
+    ?.reduce((previous, current) => (options[current] ? previous + `${current}=${options[current]}&` : previous), '')
+    .slice(0, -1)
+  return queryString
+}

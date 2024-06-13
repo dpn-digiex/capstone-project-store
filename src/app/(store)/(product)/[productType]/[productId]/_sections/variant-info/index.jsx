@@ -18,14 +18,14 @@ const VariantInfo = ({ product = {} }) => {
   return (
     <>
       <div className='flex flex-wrap gap-2'>
-        <span className='text-[1.5rem] font-bold'>{formatCurrency(selectedVariant?.options?.[0]?.price)}</span>
+        <span className='text-[1.5rem] font-bold'>
+          {formatCurrency(selectedVariant?.options?.[0]?.price * (1 - selectedVariant?.options?.[0]?.discount / 100))}
+        </span>
         {selectedVariant?.options?.[0]?.discount ? (
-          <span className='text-[1.375rem] line-through'>
-            {formatCurrency(selectedVariant?.options?.[0]?.price * (1 - selectedVariant?.options?.[0]?.discount / 100))}
-          </span>
+          <span className='text-[1.375rem] line-through'>{formatCurrency(selectedVariant?.options?.[0]?.price)}</span>
         ) : null}
         {selectedVariant?.options?.[0]?.discount > 0 ? (
-          <span className='text-[1.375rem]'>{`${selectedVariant?.options?.[0]?.discount}%`}</span>
+          <span className='text-[1.375rem]'>{`-${selectedVariant?.options?.[0]?.discount}%`}</span>
         ) : null}
       </div>
       {product.variants?.length > 0 && (

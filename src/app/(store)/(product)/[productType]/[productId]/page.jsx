@@ -9,7 +9,7 @@ import Comments from '@/components/comments'
 import Reviews from '@/components/reviews'
 import SliderGallery from '@/components/slider-gallery'
 import StatusLabel from '@/components/status-label'
-import { getProductDetailService } from '@/services/product-service'
+import { getProductBySlugService } from '@/services/product-service'
 
 import Suggestions from './_sections/suggestions'
 import VariantInfo from './_sections/variant-info'
@@ -17,7 +17,7 @@ import styles from './index.module.css'
 
 const ProductDetailPage = async ({ params }) => {
   const { productId: productSlug } = params
-  const product = await getProductDetailService('6667e311614afe162269e6cc')
+  const product = await getProductBySlugService(productSlug)
 
   return (
     <div className={styles['page-container']}>

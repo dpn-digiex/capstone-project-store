@@ -1,15 +1,27 @@
-import React from 'react'
+'use client'
+import React, { useState } from 'react'
 import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { formatCurrency } from '@/utils'
+import { formatCurrency, getType } from '@/utils'
 
 import './index.style.css'
 
-const Card = ({ image, name, currentPrice, originPrice, discount, message, redirectUrl = '', imageClass }) => {
+const Card = ({
+  image,
+  name,
+  currentPrice,
+  originPrice,
+  discount,
+  message,
+  redirectUrl = '',
+  imageClass,
+  variants
+}) => {
+  const [selectedVariant] = useState(getType(variants) === 'array' ? variants[0] : {})
   return (
-    <Link className='card p-8 rounded-3xl' href={redirectUrl}>
+    <Link className='card p-8 rounded-3xl h-full' href={redirectUrl}>
       <div className='flex flex-col gap-6 items-center'>
         <Image
           alt={name}
@@ -22,9 +34,17 @@ const Card = ({ image, name, currentPrice, originPrice, discount, message, redir
         <h3 className='text-base text-white text-center'>{name}</h3>
       </div>
       <div className='flex items-center gap-1.5 justify-center mt-5'>
-        <span className='text-md font-bold'>{formatCurrency(currentPrice)}</span>
-        <strike className='text-[0.75rem]'>{formatCurrency(originPrice)}</strike>
-        <small className='text-[0.75rem]'>{discount}</small>
+        <span className='text-md font-bold'>
+          {formatCurrency(
+            currentPrice ?? selectedVariant?.options?.[0]?.price * (1 - selectedVariant?.options?.[0]?.discount / 100)
+          )}
+        </span>
+        {selectedVariant?.options?.[0]?.discount ? (
+          <strike className='text-[0.75rem]'>
+            {formatCurrency(originPrice ?? selectedVariant.options?.[0]?.price)}
+          </strike>
+        ) : null}
+        {selectedVariant?.options?.[0]?.discount > 0 ? <small className='text-[0.75rem]'>{discount}</small> : null}
       </div>
       <p className='text-[#ff9f00] text-center text-sm'>{message}</p>
     </Link>

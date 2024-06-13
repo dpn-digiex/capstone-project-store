@@ -8,44 +8,17 @@ import { usePathname } from 'next/navigation'
 
 import ButtonLink from '@/components/button-link'
 import SeachComponent from '@/components/search'
+import SkeletonComponent from '@/components/skeleton'
 import { ROUTES_APP } from '@/constants'
-// import useResponsive from '@/hooks/useResponsive'
-
-const MENU_HEADER = {
-  IPHONE: {
-    PATH: ROUTES_APP.PRODUCT.IPHONE,
-    TITLE: 'iPhone'
-  },
-  MAC: {
-    PATH: ROUTES_APP.PRODUCT.MAC,
-    TITLE: 'Mac'
-  },
-  IPAD: {
-    PATH: ROUTES_APP.PRODUCT.IPAD,
-    TITLE: 'iPad'
-  },
-  WATCH: {
-    PATH: ROUTES_APP.PRODUCT.WATCH,
-    TITLE: 'Watch'
-  },
-  SOUND: {
-    PATH: ROUTES_APP.PRODUCT.SOUND,
-    TITLE: 'Tai nghe, Loa'
-  },
-  ACCESSORIES: {
-    PATH: ROUTES_APP.PRODUCT.ACCESSORIES,
-    TITLE: 'Phụ kiện'
-  },
-  BLOG: {
-    PATH: ROUTES_APP.BLOG,
-    TITLE: 'Blog Công nghệ'
-  }
-}
+import useFetch from '@/hooks/useFetch'
+import { getCategoryListService } from '@/services/category-service'
 const cartLength = 0
 
 const Header = () => {
   const pathname = usePathname()
-  // useResponsive()
+  const { isLoading, response: categoryList } = useFetch(getCategoryListService)
+
+  if (isLoading) return <SkeletonComponent />
   return (
     <header className='sticky top-0 z-[1000] w-full h-[60px]  bg-bgBlack'>
       <div className='container h-full flex items-center justify-between '>
@@ -55,15 +28,15 @@ const Header = () => {
           </ButtonLink>
         </div>
         <div className='flex items-center'>
-          {Object.keys(MENU_HEADER).map((key, index) => {
+          {categoryList.map((category) => {
             return (
               <ButtonLink
-                key={`menu-header-${index}`}
-                href={MENU_HEADER[key].PATH}
-                isSelected={pathname.includes(MENU_HEADER[key].PATH)}
+                key={category._id}
+                href={`/${category.slug}`}
+                isSelected={pathname.includes(`/${category.slug}`)}
                 customStyle='min-w-25 max-w-[200px]'
               >
-                {MENU_HEADER[key].TITLE}
+                {category.name}
               </ButtonLink>
             )
           })}

@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect } from 'react'
 import clsx from 'clsx'
 
-import Loading from '@/app/loading'
+import SkeletonComponent from '@/components/skeleton'
 import useFetch from '@/hooks/useFetch'
 import { changeQuantityService, removeCartItemService } from '@/services/cart-service'
 import { getProductByIdService } from '@/services/product-service'
@@ -70,7 +70,7 @@ const ProductSection = ({
     [onRefreshCart]
   )
 
-  if (isLoading === true && refreshCart === 0) return <Loading />
+  if (isLoading === true && refreshCart === 0) return <SkeletonComponent />
   return (
     <div className='p-6 bg-[#515965] rounded-t-lg shadow-lg'>
       <section>

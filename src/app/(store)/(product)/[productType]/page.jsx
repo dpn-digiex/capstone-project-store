@@ -3,6 +3,8 @@ import { FaApple } from 'react-icons/fa'
 import Banner from '@/components/banner'
 import Card from '@/components/card'
 import FilterProduct from '@/components/filter-product'
+import { getCategoryListService } from '@/services/category-service'
+import { getProductListByCategoryService } from '@/services/product-service'
 
 const MAPPING_TITLE = {
   ['iphone']: 'iPhone',
@@ -13,12 +15,19 @@ const MAPPING_TITLE = {
   ['phu-kien']: 'Phụ kiện'
 }
 
-const ProductTypePage = async ({ isDefaultPage = false, params }) => {
+const ProductTypePage = async ({ isDefaultPage = false, params, searchParams }) => {
   const bannerResponse = await fetch('http://localhost:3000/api/banner')
   const banners = await bannerResponse.json()
 
-  const response = await fetch('http://localhost:3000/api/product', { cache: 'no-store' })
-  const productList = await response.json()
+  const categoryList = await getCategoryListService()
+  const activeCategory = categoryList.find((category) => category.slug === params.productType)
+  const response = await getProductListByCategoryService({
+    page_number: 1,
+    page_size: 20,
+    category_id: activeCategory?._id,
+    sub_category_id: searchParams.sub
+  })
+  const productList = response.products
 
   return (
     <div className='container'>
@@ -34,22 +43,27 @@ const ProductTypePage = async ({ isDefaultPage = false, params }) => {
       </div>
       <Banner banners={banners} />
       <div className='my-8'>
-        <FilterProduct productType={params?.productType} />
+        <FilterProduct productType={params?.productType} subCategories={activeCategory?.subCategories} />
       </div>
-      <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 my-8'>
-        {productList.map((product) => (
-          <Card
-            key={product.id}
-            image={product.image}
-            name={product.name}
-            currentPrice={product.currentPrice}
-            originPrice={product.originPrice}
-            discount={product.discount}
-            message={product.message}
-            redirectUrl={`${params?.productType}/${product.slug}`}
-          />
-        ))}
-      </div>
+      {productList.length === 0 ? (
+        <p className='text-center pb-10 text-white/50 text-lg'>Sản phẩm đang cập nhật...</p>
+      ) : (
+        <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 my-8'>
+          {productList.map((product) => (
+            <Card
+              key={product._id}
+              image={product.mainImageUrl}
+              name={product.name}
+              currentPrice={product.currentPrice}
+              originPrice={product.originPrice}
+              discount={product.discount}
+              message={product.message}
+              redirectUrl={`${params?.productType}/${product.slug}`}
+              variants={product.variants}
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }

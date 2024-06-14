@@ -18,6 +18,7 @@ import SummarySection from './_summary-section/page'
 import UserInfoSection from './_user-section/page'
 
 const CartPage = () => {
+  const [cartTotal, setCartTotal] = useState(0)
   const [refreshCart, setRefreshCart] = useState(0)
   const { isLoading, response: cartData } = useFetch(getCartService, refreshCart)
   const [selectedItems, setSelectedItems] = useState([])
@@ -52,6 +53,7 @@ const CartPage = () => {
         }
       })
       cloneData['cart-items'] = transformCartItems
+      cloneData.total = cartTotal
       return cloneData
     })
     CacheUtil.setCachedData(CacheKey.checkout, payload)
@@ -80,10 +82,12 @@ const CartPage = () => {
         onRefreshCart={() => setRefreshCart((prev) => prev + 1)}
         selectedItems={selectedItems}
         onSelectItem={handleSelectItem}
+        cartTotal={cartTotal}
+        setCartTotal={setCartTotal}
       />
       <UserInfoSection />
       <ShippingSection />
-      <SummarySection isSubmitable={selectedItems.length > 0} />
+      <SummarySection isSubmitable={selectedItems.length > 0} total={cartTotal} />
     </form>
   )
 }

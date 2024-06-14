@@ -1,11 +1,11 @@
 'use client'
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import clsx from 'clsx'
 
-import Loading from '@/app/loading'
+import SkeletonComponent from '@/components/skeleton'
 import useFetch from '@/hooks/useFetch'
 import { changeQuantityService, removeCartItemService } from '@/services/cart-service'
-import { getProductDetailService } from '@/services/product-service'
+import { getProductByIdService } from '@/services/product-service'
 import { formatCurrency, getType } from '@/utils'
 
 import CartItem from './_item/page'
@@ -16,14 +16,22 @@ const getVariant = (variantId, variantOptionId, product) => {
   return { variant: selectedVariant, option: selectedOption }
 }
 
-const ProductSection = ({ cart = [], refreshCart, onRefreshCart, selectedItems, onSelectItem }) => {
+const ProductSection = ({
+  cart = [],
+  refreshCart,
+  onRefreshCart,
+  selectedItems,
+  onSelectItem,
+  cartTotal = 0,
+  setCartTotal
+}) => {
   const { isLoading, response: productList } = useFetch(
-    () => Promise.all(cart.map((item) => getProductDetailService(item._id))),
+    () => Promise.all(cart.map((item) => getProductByIdService(item._id))),
     cart
   )
-  const cartTotal = useMemo(() => {
+  useEffect(() => {
     if (getType(productList) === 'array') {
-      return cart.reduce((total, currentItem) => {
+      const total = cart.reduce((total, currentItem) => {
         const cartItem = productList.find((item) => item._id === currentItem._id)
         const selectedVariant = cartItem?.variants?.find((variant) =>
           cart.some((item) => item.variantId === variant._id)
@@ -34,8 +42,10 @@ const ProductSection = ({ cart = [], refreshCart, onRefreshCart, selectedItems, 
         const itemPrice = selectedVariantOption?.price
         return total + currentItem.quantity * itemPrice
       }, 0)
+      setCartTotal?.(total)
+    } else {
+      setCartTotal?.(0)
     }
-    return 0
   }, [productList, cart])
 
   const handleDeleteItem = async (product) => {
@@ -60,7 +70,7 @@ const ProductSection = ({ cart = [], refreshCart, onRefreshCart, selectedItems, 
     [onRefreshCart]
   )
 
-  if (isLoading === true && refreshCart === 0) return <Loading />
+  if (isLoading === true && refreshCart === 0) return <SkeletonComponent />
   return (
     <div className='p-6 bg-[#515965] rounded-t-lg shadow-lg'>
       <section>

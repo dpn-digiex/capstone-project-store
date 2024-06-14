@@ -36,7 +36,8 @@ export const ResponseStatus = {
 }
 export const CacheKey = {
   cart: 'CART',
-  checkout: 'CHECKOUT'
+  checkout: 'CHECKOUT',
+  category: 'CATEGORY'
 }
 export const PROFILE_MENU = [
   {

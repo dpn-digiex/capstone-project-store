@@ -12,12 +12,14 @@ import SeachComponent from '@/components/search'
 import SkeletonComponent from '@/components/skeleton'
 import { ROUTES_APP } from '@/constants'
 import useFetch from '@/hooks/useFetch'
+import { useAppStore } from '@/libs/zustand'
 import { getCategoryListService } from '@/services/category-service'
 const cartLength = 0
 
 const Header = () => {
   const pathname = usePathname()
   const { isLoading, response: categoryList } = useFetch(getCategoryListService)
+  const accessToken = useAppStore((state) => state.accessToken)
 
   if (isLoading) return <SkeletonComponent />
   return (
@@ -69,7 +71,7 @@ const Header = () => {
               )}
             </div>
           </Link>
-          <Link href={ROUTES_APP.SIGN_IN}>
+          <Link href={accessToken ? `${ROUTES_APP.PROFILE}/thong-tin-tai-khoan` : ROUTES_APP.SIGN_IN}>
             <div className='relative w-9 h-9 rounded-full flex items-center justify-center bg-[#2f3033] hover:bg-[#545454] cursor-pointer'>
               <GoPerson />
             </div>

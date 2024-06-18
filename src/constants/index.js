@@ -26,7 +26,7 @@ export const USER_API = {
 }
 
 export const LOCAL_STORE_CART = 'APP_CART'
-export const LOCAL_STORE_ACCESS_TOKEN = 'APP_ACCESS_TOKEN'
+export const LOCAL_STORE_ACCESS_TOKEN = 'accessToken'
 
 export const BASE_API_URL = process.env.NEXT_PUBLIC_API_END_POINT ?? 'http://localhost:2800/api/v1'
 

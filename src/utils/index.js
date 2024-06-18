@@ -58,6 +58,7 @@ export const addToLocalCart = (product) => {
         return item
       })
       setLocalStore(LOCAL_STORE_CART, newCart)
+      return newCart
     } else {
       const newCart = localCart.concat({
         _id: product._id,
@@ -66,11 +67,11 @@ export const addToLocalCart = (product) => {
         variantOptionId: product.variantOptionId
       })
       setLocalStore(LOCAL_STORE_CART, newCart)
+      return newCart
     }
-    return true
   } catch (error) {
     console.log(error)
-    return false
+    return []
   }
 }
 export const objectFromFormData = (formData, multi = [], replacer) => {

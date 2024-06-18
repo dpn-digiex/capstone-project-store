@@ -4,6 +4,7 @@ import clsx from 'clsx'
 
 import SkeletonComponent from '@/components/skeleton'
 import useFetch from '@/hooks/useFetch'
+import { useAppStore } from '@/libs/zustand'
 import { changeQuantityService, removeCartItemService } from '@/services/cart-service'
 import { getProductByIdService } from '@/services/product-service'
 import { formatCurrency, getType } from '@/utils'
@@ -29,6 +30,7 @@ const ProductSection = ({
     () => Promise.all(cart.map((item) => getProductByIdService(item._id))),
     cart
   )
+  const removeCartItem = useAppStore((state) => state.removeCartItem)
   useEffect(() => {
     if (getType(productList) === 'array') {
       const total = cart.reduce((total, currentItem) => {
@@ -52,6 +54,7 @@ const ProductSection = ({
     try {
       const result = await removeCartItemService(product)
       if (result === true) {
+        removeCartItem(product)
         onRefreshCart?.()
       }
     } catch (error) {

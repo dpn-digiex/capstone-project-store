@@ -14,12 +14,12 @@ import { ROUTES_APP } from '@/constants'
 import useFetch from '@/hooks/useFetch'
 import { useAppStore } from '@/libs/zustand'
 import { getCategoryListService } from '@/services/category-service'
-const cartLength = 0
 
 const Header = () => {
   const pathname = usePathname()
   const { isLoading, response: categoryList } = useFetch(getCategoryListService)
   const accessToken = useAppStore((state) => state.accessToken)
+  const cart = useAppStore((state) => state.cart)
 
   if (isLoading) return <SkeletonComponent />
   return (
@@ -58,7 +58,7 @@ const Header = () => {
           <Link href={ROUTES_APP.CART}>
             <div className='relative w-9 h-9 rounded-full flex items-center justify-center bg-[#2f3033] hover:bg-[#545454] cursor-pointer'>
               <HiOutlineShoppingBag />
-              {cartLength === 0 ? null : (
+              {cart.length === 0 ? null : (
                 <span
                   className={clsx(
                     'text-[0.5rem] leading-[0] h-4 w-4 bg-red-500 rounded-full',
@@ -66,7 +66,7 @@ const Header = () => {
                     'absolute top-0 right-0'
                   )}
                 >
-                  {cartLength}
+                  {cart.length}
                 </span>
               )}
             </div>

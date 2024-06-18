@@ -31,8 +31,8 @@ export const login = async ({ username, password }) => {
 export const logout = async () => {
   try {
     localStorage.removeItem('accessToken')
-    delete axiosInstance.defaults.headers.common['x-access-token']
     await axiosInstance.post('/user/logout')
+    delete axiosInstance.defaults.headers.common['x-access-token']
     return true
   } catch (error) {
     console.log(error)

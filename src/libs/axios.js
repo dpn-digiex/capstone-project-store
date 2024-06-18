@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+import { refreshToken } from '@/services/user-service'
+
 export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_END_POINT,
   // withCredentials: true, // Needed for cookies,
@@ -25,10 +27,10 @@ axiosInstance.interceptors.response.use(
       try {
         // Ensure this runs on client-side only
         if (typeof window !== 'undefined') {
-          const { data } = await axiosInstance.post('/refresh-token')
-          localStorage.setItem('accessToken', data.accessToken)
-          axios.defaults.headers.common['x-access-token'] = data.accessToken
-          return axiosInstance(originalRequest) // retry the original request
+          const response = await refreshToken()
+          if (response) {
+            return axiosInstance(originalRequest) // retry the original request
+          }
         }
       } catch (err) {
         return Promise.reject(err)

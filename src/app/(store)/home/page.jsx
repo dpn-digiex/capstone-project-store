@@ -21,12 +21,12 @@ const HomePage = async () => {
       <Banner banners={banners} />
       <div className='container'>
         <FlashSale renderSize={6} />
-        <IPhoneSection productList={productList['iPhone']} />
-        <MacSection productList={productList['Mac']} />
-        <IPadSection productList={productList['iPad']} />
-        <WatchSection productList={productList['Watch']} />
-        <SoundSection productList={productList['Tai nghe, Loa']} />
-        <AccessoriesSection productList={productList['Phụ kiện']} />
+        <IPhoneSection productList={productList?.['iPhone'] || []} />
+        <MacSection productList={productList?.['Mac'] || []} />
+        <IPadSection productList={productList?.['iPad'] || []} />
+        <WatchSection productList={productList?.['Watch'] || []} />
+        <SoundSection productList={productList?.['Tai nghe, Loa'] || []} />
+        <AccessoriesSection productList={productList?.['Phụ kiện'] || []} />
       </div>
     </div>
   )

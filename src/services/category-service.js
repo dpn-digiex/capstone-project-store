@@ -1,9 +1,10 @@
-import { publicRequest } from '@/libs/axios'
+import { axiosInstance } from '@/libs/axios'
 
 export const getCategoryListService = async () => {
   try {
-    const response = await publicRequest.get('/product/category/list')
-    const data = await response.data
+    const response = await axiosInstance.get('/product/category/list')
+    const { status, message, data } = response
+    if (status !== 200) throw new Error(message)
     return data
   } catch (error) {
     console.log(error)

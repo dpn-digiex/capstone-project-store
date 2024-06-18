@@ -45,7 +45,7 @@ const ProductTypePage = async ({ isDefaultPage = false, params, searchParams }) 
       <div className='my-8'>
         <FilterProduct productType={params?.productType} subCategories={activeCategory?.subCategories} />
       </div>
-      {productList.length === 0 ? (
+      {productList?.length === 0 ? (
         <p className='text-center pb-10 text-white/50 text-lg'>Sản phẩm đang cập nhật...</p>
       ) : (
         <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 my-8'>

@@ -35,20 +35,22 @@ const Header = () => {
             </div>
           </ButtonLink>
         </div>
-        <div className='flex items-center'>
-          {categoryList.map((category) => {
-            return (
-              <ButtonLink
-                key={category._id}
-                href={`/${category.slug}`}
-                isSelected={pathname.includes(`/${category.slug}`)}
-                customStyle='min-w-25 max-w-[200px]'
-              >
-                {category.name}
-              </ButtonLink>
-            )
-          })}
-        </div>
+        {categoryList?.length > 0 && (
+          <div className='flex items-center'>
+            {categoryList.map((category) => {
+              return (
+                <ButtonLink
+                  key={category._id}
+                  href={`/${category.slug}`}
+                  isSelected={pathname.includes(`/${category.slug}`)}
+                  customStyle='min-w-25 max-w-[200px]'
+                >
+                  {category.name}
+                </ButtonLink>
+              )
+            })}
+          </div>
+        )}
         <div className='ml-12 flex items-center justify-center gap-2'>
           <SeachComponent />
           <Link href={ROUTES_APP.CART}>

@@ -1,13 +1,12 @@
-import { ResponseStatus } from '@/constants'
-import { publicRequest } from '@/libs/axios'
+import { axiosInstance } from '@/libs/axios'
 import { getQueryString } from '@/utils'
 
 export const getProductHomePageService = async () => {
   try {
-    const response = await publicRequest.get('/product/list/home-page')
-    const data = await response.data
-    if (data.status !== ResponseStatus.success) throw new Error(data.message)
-    return data.data
+    const response = await axiosInstance.get('/product/list/home-page')
+    const { status, message, data } = response
+    if (status !== 200) throw new Error(message)
+    return data
   } catch (error) {
     console.log(error)
     return []
@@ -16,10 +15,10 @@ export const getProductHomePageService = async () => {
 
 export const getProductByIdService = async (productId) => {
   try {
-    const response = await publicRequest.get(`/product/${productId}`)
-    const data = await response.data
-    if (data.status !== ResponseStatus.success) throw new Error(data.message)
-    return data.data
+    const response = await axiosInstance.get(`/product/${productId}`)
+    const { status, message, data } = response
+    if (status !== 200) throw new Error(message)
+    return data
   } catch (error) {
     console.log(error)
     return {}
@@ -28,10 +27,10 @@ export const getProductByIdService = async (productId) => {
 
 export const getProductBySlugService = async (slug) => {
   try {
-    const response = await publicRequest.get(`/product/detail/${slug}`)
-    const data = await response.data
-    if (data.status !== ResponseStatus.success) throw new Error(data.message)
-    return data.data
+    const response = await axiosInstance.get(`/product/detail/${slug}`)
+    const { status, message, data } = response
+    if (status !== 200) throw new Error(message)
+    return data
   } catch (error) {
     console.log(error)
     return {}
@@ -41,10 +40,10 @@ export const getProductBySlugService = async (slug) => {
 export const getProductListByCategoryService = async (queryOption) => {
   try {
     const queryString = getQueryString(queryOption)
-    const response = await publicRequest.get(`/product/list?${queryString}`)
-    const data = await response.data
-    if (data.status !== ResponseStatus.success) throw new Error(data.message)
-    return data.data
+    const response = await axiosInstance.get(`/product/list?${queryString}`)
+    const { status, message, data } = response
+    if (status !== 200) throw new Error(message)
+    return data
   } catch (error) {
     console.log(error)
     return []

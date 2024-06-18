@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import { MdOutlineLock, MdOutlinePerson, MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md'
 import clsx from 'clsx'
 import { usePathname } from 'next/navigation'
@@ -7,6 +8,8 @@ import { usePathname } from 'next/navigation'
 import FormClient from '@/components/form-client'
 import Input from '@/components/form-client/input'
 import { ROUTES_APP } from '@/constants'
+import { useAppStore } from '@/libs/zustand'
+import { login } from '@/services/user-service'
 
 import styles from './index.module.css'
 
@@ -14,15 +17,18 @@ const SignIn = () => {
   // [STATES]
   const pathname = usePathname()
   const [showPassword, setShowPassword] = useState(false)
+  const setAccessToken = useAppStore((state) => state.setAccessToken)
 
   // [HANDLER FUNCTIONS]
   const handleLogin = async (e) => {
     try {
       const formData = new FormData(e.target)
       const payload = Object.fromEntries(formData)
-      console.log(payload)
+      const result = await login(payload)
+      if (result === false) throw new Error('Đăng nhập thất bại, vui lòng thử lại')
+      setAccessToken(result)
     } catch (error) {
-      console.log(error.message)
+      toast.error(error.message)
     }
   }
 

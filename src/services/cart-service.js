@@ -38,7 +38,6 @@ export const addToCartService = async (product) => {
 }
 
 export const removeCartItemService = async (product) => {
-  console.log(product)
   try {
     const isLoggedIn = getLocalStore(LOCAL_STORE_ACCESS_TOKEN)
     if (isLoggedIn === null) {

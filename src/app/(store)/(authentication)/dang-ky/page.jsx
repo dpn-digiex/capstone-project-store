@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import { FaRegCircleUser } from 'react-icons/fa6'
 import {
   MdMailOutline,
@@ -15,6 +16,7 @@ import { usePathname } from 'next/navigation'
 import FormClient from '@/components/form-client'
 import Input from '@/components/form-client/input'
 import { ROUTES_APP } from '@/constants'
+import { register } from '@/services/user-service'
 
 import styles from './index.module.css'
 
@@ -30,9 +32,11 @@ const SignUp = () => {
     try {
       const formData = new FormData(e.target)
       const payload = Object.fromEntries(formData)
-      console.log(payload)
+      const result = await register(payload)
+      if (result.status === 'error') throw new Error(result.message)
+      toast.success('Đăng ký thành công')
     } catch (error) {
-      console.log(error.message)
+      toast.error(error.message)
     }
   }
 
@@ -55,7 +59,7 @@ const SignUp = () => {
       <Input type='email' name='email' required placeholder='Email*'>
         <MdMailOutline />
       </Input>
-      <Input type='tel' name='phone' required placeholder='Số điện thoại*'>
+      <Input type='tel' name='phoneNumber' required placeholder='Số điện thoại*'>
         <MdOutlinePhone />
       </Input>
       <Input type='text' name='username' required placeholder='Tên đăng nhập*'>

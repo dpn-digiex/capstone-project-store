@@ -1,4 +1,5 @@
 import axiosInstance from '@/libs/axios'
+import { setLocalStore } from '@/utils'
 
 export const register = async ({ username, password, fullName, email, phoneNumber }) => {
   try {
@@ -9,17 +10,18 @@ export const register = async ({ username, password, fullName, email, phoneNumbe
     return data
   } catch (error) {
     console.log(error)
+    return { status: 'error', message: 'Đăng ký thất bại, vui lòng thử lại' }
   }
 }
 
-export const login = async (username, password) => {
+export const login = async ({ username, password }) => {
   try {
     const response = await axiosInstance.post('/user/login', { username, password })
     const { status, message, data } = response
     if (status !== 200) throw new Error(message || 'Đăng nhập thất bại, vui lòng thử lại')
-    localStorage.setItem('accessToken', data.accessToken)
+    setLocalStore('accessToken', data.accessToken)
     axiosInstance.defaults.headers.common['x-access-token'] = data.accessToken
-    return true
+    return data.accessToken
   } catch (error) {
     console.log(error)
     return false

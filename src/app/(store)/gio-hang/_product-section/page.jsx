@@ -2,20 +2,14 @@
 import React, { useCallback, useEffect } from 'react'
 import clsx from 'clsx'
 
-import SkeletonComponent from '@/components/skeleton'
+import Loading from '@/app/loading'
 import useFetch from '@/hooks/useFetch'
 import { useAppStore } from '@/libs/zustand'
 import { changeQuantityService, removeCartItemService } from '@/services/cart-service'
-import { getProductByIdService } from '@/services/product-service'
+import { getVariantDetailService } from '@/services/product-service'
 import { formatCurrency, getType } from '@/utils'
 
 import CartItem from './_item/page'
-
-const getVariant = (variantId, variantOptionId, product) => {
-  const selectedVariant = product.variants?.find((variant) => variant._id === variantId)
-  const selectedOption = selectedVariant?.options?.find((option) => option._id === variantOptionId)
-  return { variant: selectedVariant, option: selectedOption }
-}
 
 const ProductSection = ({
   cart = [],
@@ -26,29 +20,26 @@ const ProductSection = ({
   cartTotal = 0,
   setCartTotal
 }) => {
-  const { isLoading, response: productList } = useFetch(
-    () => Promise.all(cart.map((item) => getProductByIdService(item._id))),
-    cart
-  )
+  const { isLoading, response } = useFetch(() => getVariantDetailService(cart))
   const removeCartItem = useAppStore((state) => state.removeCartItem)
   useEffect(() => {
-    if (getType(productList) === 'array') {
+    if (getType(response) === 'array') {
       const total = cart.reduce((total, currentItem) => {
-        const cartItem = productList.find((item) => item._id === currentItem._id)
-        const selectedVariant = cartItem?.variants?.find((variant) =>
-          cart.some((item) => item.variantId === variant._id)
+        const cartItem = response.find(
+          (item) =>
+            item.productId === currentItem.productId &&
+            item.variantId === currentItem.variantId &&
+            item.optionId === currentItem.optionId
         )
-        const selectedVariantOption = selectedVariant?.options?.find((option) =>
-          cart.some((item) => item.variantOptionId === option._id)
-        )
-        const itemPrice = selectedVariantOption?.price
+
+        const itemPrice = cartItem?.price
         return total + currentItem.quantity * itemPrice
       }, 0)
       setCartTotal?.(total)
     } else {
       setCartTotal?.(0)
     }
-  }, [productList, cart])
+  }, [response, cart])
 
   const handleDeleteItem = async (product) => {
     try {
@@ -73,31 +64,35 @@ const ProductSection = ({
     [onRefreshCart]
   )
 
-  if (isLoading === true && refreshCart === 0) return <SkeletonComponent />
+  if (isLoading === true && refreshCart === 0) return <Loading />
   return (
     <div className='p-6 bg-[#515965] rounded-t-lg shadow-lg'>
       <section>
         <div className='text-xs'>
-          {cart.map((product, index) => (
-            <CartItem
-              key={'' + product._id + product.variantId + product.variantOptionId}
-              onRemove={handleDeleteItem}
-              product={{
-                ...product,
-                ...productList.find((item) => item._id === product._id),
-                variant: getVariant(
-                  product.variantId,
-                  product.variantOptionId,
-                  productList.find((item) => item._id === product._id)
-                )
-              }}
-              quantity={product?.quantity}
-              className={clsx({ peer: index === 0 })}
-              onUpdate={handleUpdateQuantity}
-              selectedItems={selectedItems}
-              onSelectItem={onSelectItem}
-            />
-          ))}
+          {cart.map((product, index) => {
+            const mappedProduct =
+              response.find(
+                (item) =>
+                  item.productId === product.productId &&
+                  item.variantId === product.variantId &&
+                  item.optionId === product.optionId
+              ) ?? {}
+            return (
+              <CartItem
+                key={'' + product.productId + product.variantId + product.optionId}
+                onRemove={handleDeleteItem}
+                product={{
+                  ...product,
+                  ...mappedProduct
+                }}
+                quantity={product?.quantity}
+                className={clsx({ peer: index === 0 })}
+                onUpdate={handleUpdateQuantity}
+                selectedItems={selectedItems}
+                onSelectItem={onSelectItem}
+              />
+            )
+          })}
         </div>
         <div className='text-xs flex items-center justify-between'>
           <span>

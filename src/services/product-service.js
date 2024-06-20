@@ -49,3 +49,14 @@ export const getProductListByCategoryService = async (queryOption) => {
     return []
   }
 }
+export const getVariantDetailService = async (listVariant) => {
+  try {
+    const response = await axiosInstance.post('/product/list/variant-detail', listVariant)
+    const { status, message, data } = response
+    if (status !== 200) throw new Error(message)
+    return data
+  } catch (error) {
+    console.log(error)
+    return []
+  }
+}

@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { IoIosClose } from 'react-icons/io'
 import clsx from 'clsx'
 import Image from 'next/image'
-import Link from 'next/link'
 
 import { formatCurrency } from '@/utils'
 
@@ -60,16 +59,21 @@ const CartItem = ({ product = {}, quantity = 0, className, onRemove, onUpdate, s
     >
       <input
         type='checkbox'
-        // name='cart-item-id'
-        value={`${product._id}-${product.variantId}-${product.variantOptionId}`}
-        checked={selectedItems.includes(`${product._id}-${product.variantId}-${product.variantOptionId}`)}
+        checked={
+          selectedItems.find(
+            (item) =>
+              item.productId === product.productId &&
+              item.variantId === product.variantId &&
+              item.optionId === product.optionId
+          ) !== undefined
+        }
         className='w-4 h-4 accent-sky-400'
         onChange={(e) => handleSelectItem(e, product)}
       />
       <div className='flex flex-col items-center gap-1'>
         <Image
-          src={product.mainImageUrl}
-          alt={product.name}
+          src={product.imageUrl}
+          alt={product.productName}
           width={90}
           height={160}
           className='object-cover object-center w-auto h-auto'
@@ -84,10 +88,10 @@ const CartItem = ({ product = {}, quantity = 0, className, onRemove, onUpdate, s
       </div>
       <div className='flex-1'>
         <div className='flex items-center justify-between text-xs'>
-          <h3>{product.name}</h3>
-          <span className='font-bold'>{formatCurrency(product.variant?.option?.price)}</span>
+          <h3 className='text-base'>{product.productName}</h3>
+          <span className='font-bold'>{formatCurrency(product.price)}</span>
         </div>
-        <div className='text-[0.75rem] list-disc mt-2'>
+        {/* <div className='text-[0.75rem] list-disc mt-2'>
           <span className='list-item list-inside'>
             Nhập mã VNPAYTGDD2 giảm ngay 1% (tối đa 200.000đ) khi thanh toán qua VNPAY-QR, áp dụng cho đơn hàng từ 3
             Triệu{' '}
@@ -95,12 +99,12 @@ const CartItem = ({ product = {}, quantity = 0, className, onRemove, onUpdate, s
               (Xem chi tiết tại đây)
             </Link>
           </span>
-        </div>
+        </div> */}
         <div className='mt-2 flex items-center justify-between'>
           <div className='flex items-center gap-1'>
             <span>Mẫu:</span>
             <span>
-              {product.variant?.variant?.name} - Màu {product.variant?.option?.color}
+              {product.variantName} - Màu {product.color}
             </span>
           </div>
           <div className='inline-flex items-center justify-center shadow-lg'>
@@ -122,24 +126,15 @@ const CartItem = ({ product = {}, quantity = 0, className, onRemove, onUpdate, s
               value={productQuantity}
               onChange={handleInputQuantity}
             />
-            {selectedItems.includes(`${product._id}-${product.variantId}-${product.variantOptionId}`) ? (
+            {selectedItems.includes(`${product.productId}-${product.variantId}-${product.optionId}`) ? (
               <input
                 type='hidden'
                 value={concatString(
                   ':',
-                  concatString(
-                    '-',
-                    product._id,
-                    product.name,
-                    product.variantId,
-                    product.variantOptionId,
-                    product.variant?.variant?.name,
-                    product.variant?.option?.color,
-                    window.btoa(product.mainImageUrl)
-                  ),
+                  concatString('-', product.productId, product.variantId, product.optionId),
                   productQuantity
                 )}
-                name='cart-items'
+                name='items'
               />
             ) : null}
             <button

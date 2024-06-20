@@ -3,21 +3,24 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { MdOutlineLock, MdOutlinePerson, MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md'
 import clsx from 'clsx'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 import FormClient from '@/components/form-client'
 import Input from '@/components/form-client/input'
-import { ROUTES_APP } from '@/constants'
+import { LOCAL_STORE_CACHE_ROUTE, ROUTES_APP } from '@/constants'
 import { useAppStore } from '@/libs/zustand'
 import { login } from '@/services/user-service'
+import { getLocalStore } from '@/utils'
 
 import styles from './index.module.css'
 
 const SignIn = () => {
   // [STATES]
   const pathname = usePathname()
+  const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
   const setAccessToken = useAppStore((state) => state.setAccessToken)
+  const setUser = useAppStore((state) => state.setUser)
 
   // [HANDLER FUNCTIONS]
   const handleLogin = async (e) => {
@@ -25,8 +28,15 @@ const SignIn = () => {
       const formData = new FormData(e.target)
       const payload = Object.fromEntries(formData)
       const result = await login(payload)
+      const cacheRoute = getLocalStore(LOCAL_STORE_CACHE_ROUTE)
+      if (cacheRoute) {
+        router.push(cacheRoute)
+      } else {
+        router.push(`${ROUTES_APP.PROFILE}/thong-tin-tai-khoan`)
+      }
       if (result === false) throw new Error('Đăng nhập thất bại, vui lòng thử lại')
-      setAccessToken(result)
+      setUser(result)
+      setAccessToken(result.accessToken)
     } catch (error) {
       toast.error(error.message)
     }

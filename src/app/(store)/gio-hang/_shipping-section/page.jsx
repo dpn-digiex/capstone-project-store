@@ -1,12 +1,70 @@
-import React from 'react'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import clsx from 'clsx'
 
 import Select from '@/components/select'
+import SkeletonComponent from '@/components/skeleton'
+import useFetch from '@/hooks/useFetch'
+import { getAddressInfo, getTransferFee } from '@/services/address-service'
 
-import Receiver from './_receiver/page'
 import styles from './index.module.css'
 
-const ShippingSection = () => {
+const ShippingSection = ({ address, setAddress, setTransferFee }) => {
+  const { isLoading, response: provinceList } = useFetch(getAddressInfo)
+  const [districtList, setDistrictList] = useState([])
+  const [wardList, setWarsList] = useState([])
+
+  const handleSelectProvince = async (province) => {
+    try {
+      const response = await getAddressInfo({ province_id: province.ProvinceID })
+      if (response === null) throw new Error('Thất bại')
+
+      setAddress({
+        provinceId: province.ProvinceID,
+        provinceName: province.ProvinceName,
+        districtId: -1,
+        districtName: '',
+        wardId: -1,
+        wardName: '',
+        detailAddress: ''
+      })
+      setDistrictList(response)
+    } catch (error) {
+      console.log(error)
+      toast.error('Xảy ra lỗi, vui lòng thử lại.')
+    }
+  }
+  const handleSelectDistrict = async (district) => {
+    try {
+      const response = await getAddressInfo({ district_id: district.DistrictID })
+      if (response === null) throw new Error('Thất bại')
+
+      setAddress((prev) => ({
+        ...prev,
+        districtId: district.DistrictID,
+        districtName: district.DistrictName,
+        wardId: -1,
+        wardName: '',
+        detailAddress: ''
+      }))
+      setWarsList(response)
+    } catch (error) {
+      console.log(error)
+      toast.error('Xảy ra lỗi, vui lòng thử lại.')
+    }
+  }
+  const handleSelectWard = async (ward) => {
+    try {
+      setAddress((prev) => ({ ...prev, wardId: ward.WardCode, wardName: ward.WardName, detailAddress: '' }))
+      const response = await getTransferFee({ to_district_id: address.districtId })
+      setTransferFee(response.total)
+    } catch (error) {
+      console.log(error)
+      toast.error('Xảy ra lỗi, vui lòng thử lại.')
+    }
+  }
+
+  if (isLoading) return <SkeletonComponent />
   return (
     <div className='px-6 py-3 bg-[#515965] shadow-lg mt-1 text-xs'>
       <h3 className='text-sm font-bold'>Hình thức nhận hàng</h3>
@@ -30,16 +88,16 @@ const ShippingSection = () => {
             emptyPlaceholder='Không có dữ liệu'
             className='border-[0.125rem] border-slate-300 rounded-md bg-slate-500'
             dropdownClassName={styles['shipping-dropdown']}
-            options={[
-              { value: 1, label: 'Hồ Chí Minh' },
-              { value: 2, label: 'Hà Nội' },
-              { value: 3, label: 'Bình Thuận' }
-            ]}
+            options={provinceList}
+            valueKey='ProvinceID'
+            renderKey='ProvinceName'
             filter
             inputPlaceholder='Tìm theo tỉnh/thành'
             name='shipping-province'
+            onSelect={handleSelectProvince}
           />
           <Select
+            key={'provice' + address.provinceId}
             placeholder='Chọn Quận/Huyện'
             emptyPlaceholder='Không có dữ liệu'
             className='border-[0.125rem] border-slate-300 rounded-md bg-slate-500'
@@ -47,8 +105,14 @@ const ShippingSection = () => {
             filter
             inputPlaceholder='Tìm theo quận/huyện'
             name='shipping-district'
+            disabled={address.provinceId === -1}
+            options={districtList}
+            valueKey='DistrictID'
+            renderKey='DistrictName'
+            onSelect={handleSelectDistrict}
           />
           <Select
+            key={'district' + address.districtId}
             placeholder='Chọn Phường/Xã'
             emptyPlaceholder='Không có dữ liệu'
             className='border-[0.125rem] border-slate-300 rounded-md bg-slate-500'
@@ -56,16 +120,30 @@ const ShippingSection = () => {
             filter
             inputPlaceholder='Tìm theo phường/xã'
             name='shipping-commune'
+            disabled={address.districtId === -1}
+            options={wardList}
+            valueKey='WardCode'
+            renderKey='WardName'
+            onSelect={handleSelectWard}
           />
           <div className={clsx(styles['custom-input'], 'bg-slate-500')}>
             <input
+              key={'ward' + address.wardId}
               id='shipping-street'
               name='shipping-street'
               type='text'
               placeholder='Số nhà, tên đường'
-              className='p-2 border-slate-300 border-[0.125rem] rounded-md outline-none bg-transparent w-full'
+              className='p-2 border-slate-300 border-[0.125rem] rounded-md outline-none bg-transparent w-full disabled:opacity-50'
+              disabled={address.wardId === -1}
+              value={address.detailAddress}
+              onChange={(e) => setAddress((prev) => ({ ...prev, detailAddress: e.target.value }))}
             />
-            <label htmlFor='shipping-street' className={styles['custom-input-label']}>
+            <label
+              htmlFor='shipping-street'
+              className={clsx(styles['custom-input-label'], {
+                'opacity-50': address.wardId === -1
+              })}
+            >
               Số nhà, tên đường
             </label>
           </div>
@@ -73,7 +151,7 @@ const ShippingSection = () => {
         <div className={clsx(styles['custom-input'], 'bg-[#515965]')}>
           <input
             id='shipping-note'
-            name='shipping-note'
+            name='note'
             type='text'
             placeholder='Nhập ghi chú (nếu có)'
             className='p-3 border-slate-300 border-[0.125rem] rounded-lg outline-none bg-transparent w-full'
@@ -83,7 +161,6 @@ const ShippingSection = () => {
           </label>
         </div>
       </div>
-      <Receiver />
     </div>
   )
 }

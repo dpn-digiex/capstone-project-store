@@ -1,5 +1,5 @@
 import { FaClipboardList } from 'react-icons/fa'
-import { MdLocationOn, MdLock, MdPerson, MdPhoto } from 'react-icons/md'
+import { MdLock, MdPerson, MdPhoto } from 'react-icons/md'
 
 export const ROUTES_APP = {
   ROOT: '/',
@@ -26,13 +26,16 @@ export const USER_API = {
 }
 
 export const LOCAL_STORE_CART = 'APP_CART'
+export const LOCAL_STORE_USER = 'user'
 export const LOCAL_STORE_ACCESS_TOKEN = 'accessToken'
+export const LOCAL_STORE_CACHE_ROUTE = 'cacheRoute'
 
 export const BASE_API_URL = process.env.NEXT_PUBLIC_API_END_POINT ?? 'http://localhost:2800/api/v1'
 
 export const ResponseStatus = {
   success: 'success',
-  error: 'error'
+  error: 'error',
+  failed: 'failed'
 }
 export const CacheKey = {
   cart: 'CART',
@@ -45,12 +48,6 @@ export const PROFILE_MENU = [
     title: 'Thông tin tài khoản',
     path: `${ROUTES_APP.PROFILE}/thong-tin-tai-khoan`,
     icon: <MdPerson size={24} />
-  },
-  {
-    id: 'shipping-address',
-    title: 'Địa chỉ nhận hàng',
-    path: `${ROUTES_APP.PROFILE}/dia-chi-nhan-hang`,
-    icon: <MdLocationOn size={24} />
   },
   {
     id: 'shopping-history',

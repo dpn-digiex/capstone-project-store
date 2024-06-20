@@ -1,12 +1,13 @@
 import axios from 'axios'
 
 import { refreshToken } from '@/services/user-service'
+import { getLocalStore } from '@/utils'
 
 export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_END_POINT,
-  // withCredentials: true, // Needed for cookies,
+  withCredentials: true, // Needed for cookies,
   headers: {
-    'Content-Type': 'application/json'
+    // 'Content-Type': 'application/json'
     // 'Access-Control-Allow-Origin': '*'
   }
 })
@@ -43,7 +44,7 @@ axiosInstance.interceptors.response.use(
 axiosInstance.interceptors.request.use((config) => {
   // Ensure this runs on client-side only
   if (typeof window !== 'undefined') {
-    const token = localStorage.getItem('accessToken')
+    const token = getLocalStore('accessToken')
     if (token) {
       config.headers['x-access-token'] = token
     }

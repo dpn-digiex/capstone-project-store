@@ -34,7 +34,7 @@ const PaymentMethods = () => {
       <button className='mx-12 p-3 uppercase bg-sky-500 rounded-md'>Xác nhận</button>
       <div className='flex flex-col items-center g-2'>
         <span>
-          Khi cần hỗ trợ vui lòng gọi <u className='text-sky-300'>0321654987</u> (08h00 - 21h-30)
+          Khi cần hỗ trợ vui lòng gọi <u className='text-sky-300'>0321654987</u> (08h00 - 21h30)
         </span>
       </div>
     </div>

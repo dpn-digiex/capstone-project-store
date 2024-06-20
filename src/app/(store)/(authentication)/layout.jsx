@@ -42,7 +42,7 @@ export default function AuthLayout({ children }) {
               <p className='mb-2 text-sm'>Nếu bạn chưa có tài khoản, hãy trở thành thành viên của chúng tôi.</p>
               <Link
                 href={ROUTES_APP.SIGN_UP}
-                className={clsx('btn btn-rounded', styles.transparentBtn)}
+                className={clsx('btn btn-rounded text-nowrap', styles.transparentBtn)}
                 onClick={() => setIsSignUp(true)}
               >
                 Đi tới đăng ký
@@ -60,7 +60,7 @@ export default function AuthLayout({ children }) {
               <p className='mb-2 text-sm'>Bạn đã sẵn sàng cho chuyến phiêu lưu?</p>
               <Link
                 href={ROUTES_APP.SIGN_IN}
-                className={clsx('btn btn-rounded', styles.transparentBtn)}
+                className={clsx('btn btn-rounded text-nowrap', styles.transparentBtn)}
                 onClick={() => setIsSignUp(false)}
               >
                 Đi tới đăng nhập

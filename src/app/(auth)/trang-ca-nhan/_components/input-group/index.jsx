@@ -12,6 +12,7 @@ const InputGroup = ({
   placeholder,
   required,
   options = [],
+  suffix,
   setErrorList,
   validate,
   position,
@@ -62,20 +63,22 @@ const InputGroup = ({
       <label htmlFor={inputId} className='text-sm'>
         {label}
       </label>
-      <input
-        type={type}
-        id={inputId}
-        name={name}
-        placeholder={placeholder}
-        required={required}
-        className={clsx(
-          'text-sm py-2 px-4 bg-none outline-none',
-          'border border-slate-300 bg-slate-400',
-          'rounded-md read-only:opacity-50 read-only:pointer-events-none',
-          'placeholder:text-slate-300'
-        )}
-        {...props}
-      />
+      <div className={clsx('flex items-center', 'border border-slate-300 bg-slate-400', 'rounded-md px-4')}>
+        <input
+          type={type}
+          id={inputId}
+          name={name}
+          placeholder={placeholder}
+          required={required}
+          className={clsx(
+            'text-sm py-2 bg-none outline-none flex-1',
+            'read-only:opacity-50 read-only:pointer-events-none',
+            'placeholder:text-slate-300 bg-transparent'
+          )}
+          {...props}
+        />
+        {suffix}
+      </div>
     </div>
   )
 }

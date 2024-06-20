@@ -2,16 +2,17 @@
 import React from 'react'
 import { toast } from 'react-hot-toast'
 
-import { CacheKey } from '@/constants'
+import { useAppStore } from '@/libs/zustand'
 import { addToCartService } from '@/services/cart-service'
-import CacheUtil from '@/utils/cache'
 
 const ButtonAddToCard = ({ productData = {}, disabled }) => {
+  const setCart = useAppStore((state) => state.setCart)
   const handleAddToCard = async () => {
     try {
       const result = await addToCartService(productData)
       if (result) {
-        CacheUtil.setCachedData(CacheKey.cart)
+        setCart(result)
+        console.log(result)
         toast.success('Add to cart successful')
       }
     } catch (error) {

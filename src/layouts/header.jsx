@@ -7,21 +7,22 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+import Loading from '@/app/loading'
 import ButtonLink from '@/components/button-link'
 import SeachComponent from '@/components/search'
-import SkeletonComponent from '@/components/skeleton'
 import { ROUTES_APP } from '@/constants'
 import useFetch from '@/hooks/useFetch'
 import { useAppStore } from '@/libs/zustand'
 import { getCategoryListService } from '@/services/category-service'
-const cartLength = 0
 
 const Header = () => {
   const pathname = usePathname()
   const { isLoading, response: categoryList } = useFetch(getCategoryListService)
   const accessToken = useAppStore((state) => state.accessToken)
+  const cart = useAppStore((state) => state.cart)
+  const user = useAppStore((state) => state.user)
 
-  if (isLoading) return <SkeletonComponent />
+  if (isLoading) return <Loading />
   return (
     <header className='sticky top-0 z-[1000] w-full h-[60px]  bg-bgBlack'>
       <div className='container h-full flex items-center justify-between '>
@@ -58,7 +59,7 @@ const Header = () => {
           <Link href={ROUTES_APP.CART}>
             <div className='relative w-9 h-9 rounded-full flex items-center justify-center bg-[#2f3033] hover:bg-[#545454] cursor-pointer'>
               <HiOutlineShoppingBag />
-              {cartLength === 0 ? null : (
+              {cart.length === 0 ? null : (
                 <span
                   className={clsx(
                     'text-[0.5rem] leading-[0] h-4 w-4 bg-red-500 rounded-full',
@@ -66,14 +67,18 @@ const Header = () => {
                     'absolute top-0 right-0'
                   )}
                 >
-                  {cartLength}
+                  {cart.length}
                 </span>
               )}
             </div>
           </Link>
           <Link href={accessToken ? `${ROUTES_APP.PROFILE}/thong-tin-tai-khoan` : ROUTES_APP.SIGN_IN}>
             <div className='relative w-9 h-9 rounded-full flex items-center justify-center bg-[#2f3033] hover:bg-[#545454] cursor-pointer'>
-              <GoPerson />
+              {user.avatar ? (
+                <Image src={user.avatar} alt={user.fullName} width={36} height={36} className='rounded-full' />
+              ) : (
+                <GoPerson />
+              )}
             </div>
           </Link>
         </div>

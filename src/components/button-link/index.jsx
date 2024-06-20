@@ -30,9 +30,9 @@ const ButtonLink = ({
           }
         )}
       >
-        <p className={clsx('whitespace-nowrap overflow-hidden text-ellipsis text-xs font-medium', customStyleText)}>
+        <div className={clsx('whitespace-nowrap overflow-hidden text-ellipsis text-xs font-medium', customStyleText)}>
           {children}
-        </p>
+        </div>
       </div>
     </Link>
   )

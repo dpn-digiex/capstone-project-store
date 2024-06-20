@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 
-import { PROFILE_MENU, ROUTES_APP } from '@/constants'
+import { PROFILE_MENU } from '@/constants'
 import { useAppStore } from '@/libs/zustand'
 import { logout } from '@/services/user-service'
 
@@ -23,7 +23,7 @@ const ProfileSidebar = () => {
       const result = await logout()
       if (result === false) throw new Error('Không thể đăng xuất, vui lòng thử lại')
       setAccessToken(null)
-      router.push(ROUTES_APP.SIGN_IN)
+      router.push('/dang-nhap')
       toast.success('Đăng xuất thành công')
     } catch (error) {
       toast.error(error.message)

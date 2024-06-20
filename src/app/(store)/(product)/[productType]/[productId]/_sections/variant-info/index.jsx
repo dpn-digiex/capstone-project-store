@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 
-import ButtonLink from '@/components/button-link'
 import { formatCurrency } from '@/utils'
 
 import ButtonAddToCard from '../../components/btnAddToCard'
@@ -54,7 +53,7 @@ const VariantInfo = ({ product = {} }) => {
       </div>
 
       <div className='flex gap-4'>
-        <ButtonLink
+        {/* <ButtonLink
           href='/thanh-toan'
           customStyle={'w-full'}
           customStyleText='text-[1rem] !font-bold'
@@ -62,14 +61,14 @@ const VariantInfo = ({ product = {} }) => {
           isDisabled={selectedVariant === undefined && selectedColor === undefined}
         >
           Mua ngay
-        </ButtonLink>
+        </ButtonLink> */}
 
         <ButtonAddToCard
           productData={{
             _id: product._id,
             quantity: 1,
             variantId: selectedVariant?._id,
-            variantOptionId: selectedColor?._id
+            optionId: selectedColor?._id
           }}
           disabled={selectedVariant === undefined && selectedColor === undefined}
         />

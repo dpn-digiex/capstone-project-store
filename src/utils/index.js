@@ -43,34 +43,33 @@ export const addToLocalCart = (product) => {
 
     const existingItem = localCart.find(
       (item) =>
-        item._id === product._id &&
-        item.variantId === product.variantId &&
-        item.variantOptionId === product.variantOptionId
+        item.productId === product._id && item.variantId === product.variantId && item.optionId === product.optionId
     )
     if (existingItem !== undefined) {
       const newCart = localCart.map((item) => {
         if (
-          item._id === product._id &&
+          item.productId === product._id &&
           item.variantId === product.variantId &&
-          item.variantOptionId === product.variantOptionId
+          item.optionId === product.optionId
         )
           return { ...item, quantity: item.quantity + (product.quantity ?? 1) }
         return item
       })
       setLocalStore(LOCAL_STORE_CART, newCart)
+      return newCart
     } else {
       const newCart = localCart.concat({
-        _id: product._id,
+        productId: product._id,
         quantity: product.quantity ?? 1,
         variantId: product.variantId,
-        variantOptionId: product.variantOptionId
+        optionId: product.optionId
       })
       setLocalStore(LOCAL_STORE_CART, newCart)
+      return newCart
     }
-    return true
   } catch (error) {
     console.log(error)
-    return false
+    return []
   }
 }
 export const objectFromFormData = (formData, multi = [], replacer) => {
@@ -97,9 +96,9 @@ export const objectFromFormData = (formData, multi = [], replacer) => {
 export const getGenderTitle = (gender) => {
   if (!gender) return 'Anh/Chị'
   switch (gender.toLowerCase()) {
-    case 'male':
+    case 'nam':
       return 'Anh'
-    case 'female':
+    case 'nữ':
       return 'Chị'
     default:
       return 'Anh/Chị'
@@ -163,4 +162,15 @@ export const getQueryString = (options = {}) => {
     ?.reduce((previous, current) => (options[current] ? previous + `${current}=${options[current]}&` : previous), '')
     .slice(0, -1)
   return queryString
+}
+
+export const formatDateInputValue = (value) => {
+  if (!value) return ''
+  const date = new Date(value)
+  const year = date.getFullYear()
+  let month = (date.getMonth() + 1).toString()
+  let day = date.getDate().toString()
+  if (month.length < 2) month = '0' + month
+  if (day.length < 2) day = '0' + day
+  return [year, month, day].join('-')
 }

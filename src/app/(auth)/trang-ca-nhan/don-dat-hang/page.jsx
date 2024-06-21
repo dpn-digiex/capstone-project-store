@@ -82,7 +82,7 @@ const ShoppingHistory = () => {
             item.items?.reduce(
               (total, product) => total + product?.price * (1 - product?.discount / 100) * product?.quantity,
               0
-            )
+            ) + item.delivery?.transferFee
           ),
           action: (
             <Link

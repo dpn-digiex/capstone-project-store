@@ -4,7 +4,7 @@ import { refreshToken } from '@/services/user-service'
 import { getLocalStore } from '@/utils'
 
 export const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_END_POINT,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true, // Needed for cookies,
   headers: {
     // 'Content-Type': 'application/json'

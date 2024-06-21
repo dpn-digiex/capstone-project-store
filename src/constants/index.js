@@ -30,7 +30,7 @@ export const LOCAL_STORE_USER = 'user'
 export const LOCAL_STORE_ACCESS_TOKEN = 'accessToken'
 export const LOCAL_STORE_CACHE_ROUTE = 'cacheRoute'
 
-export const BASE_API_URL = process.env.NEXT_PUBLIC_API_END_POINT ?? 'http://localhost:2800/api/v1'
+export const BASE_API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:2800/api/v1'
 
 export const ResponseStatus = {
   success: 'success',

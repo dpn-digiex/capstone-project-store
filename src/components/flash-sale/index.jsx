@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 import clsx from 'clsx'
 import Image from 'next/image'
@@ -10,150 +10,48 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import flameImage from '@/assets/images/flame.png'
 import flashSaleImage from '@/assets/images/flash-sale.png'
 import useCountdown from '@/hooks/useCountdown'
+import { getProductListByCategoryService } from '@/services/product-service'
 import { formatCurrency } from '@/utils'
 
 import './index.style.css'
 
 import SliderButton from '../slider-button'
 
-const ProductList = [
-  {
-    id: 1,
-    name: 'iPhone 16 PRO VIP',
-    image:
-      'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 19990000,
-    originPrice: 24490000,
-    discount: '20%',
-    total: 50,
-    remain: 24
-  },
-  {
-    id: 2,
-    name: 'iPhone 16 PRO VIP',
-    image:
-      'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 19990000,
-    originPrice: 24490000,
-    discount: '20%',
-    total: 50,
-    remain: 24
-  },
-  {
-    id: 3,
-    name: 'iPhone 16 PRO VIP',
-    image:
-      'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 19990000,
-    originPrice: 24490000,
-    discount: '20%',
-    total: 50,
-    remain: 24
-  },
-  {
-    id: 4,
-    name: 'iPhone 16 PRO VIP',
-    image:
-      'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 19990000,
-    originPrice: 24490000,
-    discount: '20%',
-    total: 50,
-    remain: 24
-  },
-  {
-    id: 5,
-    name: 'iPhone 16 PRO VIP',
-    image:
-      'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 19990000,
-    originPrice: 24490000,
-    discount: '20%',
-    total: 50,
-    remain: 24
-  },
-  {
-    id: 6,
-    name: 'iPhone 16 PRO VIP',
-    image:
-      'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 19990000,
-    originPrice: 24490000,
-    discount: '20%',
-    total: 50,
-    remain: 24
-  },
-  {
-    id: 7,
-    name: 'iPhone 16 PRO VIP',
-    image:
-      'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 19990000,
-    originPrice: 24490000,
-    discount: '20%',
-    total: 50,
-    remain: 24
-  },
-  {
-    id: 8,
-    name: 'iPhone 16 PRO VIP',
-    image:
-      'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 19990000,
-    originPrice: 24490000,
-    discount: '20%',
-    total: 50,
-    remain: 24
-  },
-  {
-    id: 9,
-    name: 'iPhone 16 PRO VIP',
-    image:
-      'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 19990000,
-    originPrice: 24490000,
-    discount: '20%',
-    total: 50,
-    remain: 24
-  },
-  {
-    id: 10,
-    name: 'iPhone 16 PRO VIP',
-    image:
-      'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 19990000,
-    originPrice: 24490000,
-    discount: '20%',
-    total: 50,
-    remain: 24
-  },
-  {
-    id: 11,
-    name: 'iPhone 16 PRO VIP',
-    image:
-      'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 19990000,
-    originPrice: 24490000,
-    discount: '20%',
-    total: 50,
-    remain: 24
-  },
-  {
-    id: 12,
-    name: 'iPhone 16 PRO VIP',
-    image:
-      'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/Products/Images/42/305658/s16/iphone-15-pro-max-blue-1-2-650x650.png',
-    currentPrice: 19990000,
-    originPrice: 24490000,
-    discount: '20%',
-    total: 50,
-    remain: 24
-  }
-]
-
 const FlashSale = ({ renderSize = 4 }) => {
+  const [productList, setProductList] = useState([])
   const [activeTab, setActiveTab] = useState('current')
   const { hours, minutes, seconds } = useCountdown()
+
+  useEffect(() => {
+    fetchFlashSaleProducts()
+  }, [])
+
+  const fetchFlashSaleProducts = async () => {
+    const categoryIdMac = '6666db9d500c89405c4d45f5'
+    const response = await getProductListByCategoryService({
+      page_number: 1,
+      page_size: 20,
+      category_id: categoryIdMac
+    })
+    const variantItems = response.products.map((product) => {
+      const variantProduct = product.variants[0].options[0]
+      return {
+        id: product._id,
+        name: product.name,
+        variantId: product.variants[0]?._id,
+        optionId: variantProduct?._id,
+        redirectUrl: `/mac/${product.slug}`,
+        slug: product.slug,
+        image: product.mainImageUrl,
+        currentPrice: +(variantProduct.price - (variantProduct.price * variantProduct.discount) / 100).toFixed(0),
+        originPrice: variantProduct.price,
+        discount: `${variantProduct.discount}%`,
+        total: variantProduct.inventory,
+        remain: variantProduct.inventory - variantProduct.soldCount
+      }
+    })
+    setProductList(variantItems)
+  }
 
   return (
     <div className='p-2'>
@@ -205,33 +103,44 @@ const FlashSale = ({ renderSize = 4 }) => {
           }}
         >
           <SliderButton type='prev' icon={<FaArrowLeft className='w-4 h-4' />} className='left-0' />
-          {ProductList.map((product) => (
+          {productList.map((product) => (
             <SwiperSlide key={product.id}>
-              <Link className='bg-[#323232] flex flex-col cursor-pointer px-2 py-4 rounded-xl gap-2' href=''>
-                <div className='flex flex-col gap-4 items-center'>
-                  <Image
-                    alt={product.name}
-                    src={product.image}
-                    width={250}
-                    height={250}
-                    priority
-                    className='w-32 h-32 object-cover object-center'
-                  />
-                  <h3 className='text-[0.75rem] text-white text-center'>{product.name}</h3>
-                </div>
-                <div className='flex items-center justify-center flex-col'>
-                  <span className='text-sm font-bold text-[#ff9f00]'>{formatCurrency(product.currentPrice)}</span>
-                  <div className='flex items-center gap-1'>
-                    <strike className='text-[0.7rem] text-white/25'>{formatCurrency(product.originPrice)}</strike>
-                    <span className='block text-[0.7rem] bg-red-600 py-0.5 px-1 rounded'>{product.discount}</span>
+              <Link
+                className='bg-[#323232] flex flex-col justify-between cursor-pointer px-2 py-4 rounded-xl gap-2 h-[284px]'
+                href={product?.redirectUrl || ''}
+              >
+                <div>
+                  <div className='flex flex-col gap-4 items-center'>
+                    <Image
+                      alt={product.name}
+                      src={product.image}
+                      width={250}
+                      height={250}
+                      priority
+                      className='w-32 h-32 object-cover object-center'
+                    />
+                    <h3 className='text-[0.75rem] text-white text-center'>{product.name}</h3>
+                  </div>
+                  <div className='flex items-center justify-center flex-col'>
+                    <span className='text-sm font-bold text-[#ff9f00]'>{formatCurrency(product.currentPrice)}</span>
+                    <div className='flex items-center gap-1'>
+                      <strike className='text-[0.7rem] text-white/25'>{formatCurrency(product.originPrice)}</strike>
+                      <span className='block text-[0.7rem] bg-red-600 py-0.5 px-1 rounded'>{product.discount}</span>
+                    </div>
                   </div>
                 </div>
+
                 <div className='relative isolate flex items-center justify-center bg-white/75 rounded-full'>
                   <Image alt='' src={flameImage} width={512} height={512} className='w-7 absolute left-0 bottom-0' />
                   <div className='text-[0.575rem] text-black'>
                     Còn {product.remain}/{product.total}
                   </div>
-                  <div className='absolute h-full bg-[#fcb500] left-0 top-0 w-1/2 -z-10 rounded-tl-full rounded-bl-full' />
+                  <div
+                    className='absolute h-full bg-[#fcb500] left-0 top-0 -z-10 rounded-full rounded-bl-full'
+                    style={{
+                      width: `${(product.remain / product.total) * 100}%`
+                    }}
+                  />
                 </div>
               </Link>
             </SwiperSlide>

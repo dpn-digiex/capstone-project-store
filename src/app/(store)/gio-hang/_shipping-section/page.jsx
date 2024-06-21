@@ -5,14 +5,17 @@ import clsx from 'clsx'
 import Select from '@/components/select'
 import SkeletonComponent from '@/components/skeleton'
 import useFetch from '@/hooks/useFetch'
-import { getAddressInfo, getTransferFee } from '@/services/address-service'
+import { getAddressInfo, getDeliveryServiceId, getTransferFee } from '@/services/delivery-service'
 
 import styles from './index.module.css'
 
 const ShippingSection = ({ address, setAddress, setTransferFee }) => {
-  const { isLoading, response: provinceList } = useFetch(getAddressInfo)
+  const { isLoading: isLoadingAddress, response: provinceList } = useFetch(getAddressInfo)
+  const { isLoading: isLoadingService, response: serviceId } = useFetch(getDeliveryServiceId)
+
   const [districtList, setDistrictList] = useState([])
   const [wardList, setWarsList] = useState([])
+  const [serviceDeliveryId, setServiceDeliveryId] = useState(null)
 
   const handleSelectProvince = async (province) => {
     try {
@@ -36,9 +39,12 @@ const ShippingSection = ({ address, setAddress, setTransferFee }) => {
   }
   const handleSelectDistrict = async (district) => {
     try {
+      setServiceDeliveryId(null)
       const response = await getAddressInfo({ district_id: district.DistrictID })
+      const responseServiceId = await getDeliveryServiceId(district.DistrictID)
       if (response === null) throw new Error('Thất bại')
 
+      setServiceDeliveryId(responseServiceId)
       setAddress((prev) => ({
         ...prev,
         districtId: district.DistrictID,
@@ -56,7 +62,11 @@ const ShippingSection = ({ address, setAddress, setTransferFee }) => {
   const handleSelectWard = async (ward) => {
     try {
       setAddress((prev) => ({ ...prev, wardId: ward.WardCode, wardName: ward.WardName, detailAddress: '' }))
-      const response = await getTransferFee({ to_district_id: address.districtId, to_ward_code: ward.WardCode })
+      const response = await getTransferFee({
+        to_district_id: address.districtId,
+        to_ward_code: ward.WardCode,
+        service_id: serviceDeliveryId
+      })
       setTransferFee(response.total)
     } catch (error) {
       console.log(error)
@@ -64,7 +74,8 @@ const ShippingSection = ({ address, setAddress, setTransferFee }) => {
     }
   }
 
-  if (isLoading) return <SkeletonComponent />
+  if (isLoadingAddress || isLoadingService) return <SkeletonComponent />
+
   return (
     <div className='px-6 py-3 bg-[#515965] shadow-lg mt-1 text-xs'>
       <h3 className='text-sm font-bold'>Hình thức nhận hàng</h3>

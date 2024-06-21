@@ -32,6 +32,7 @@ const ShippingSection = ({ address, setAddress, setTransferFee }) => {
         detailAddress: ''
       })
       setDistrictList(response)
+      setTransferFee(null)
     } catch (error) {
       console.log(error)
       toast.error('Xảy ra lỗi, vui lòng thử lại.')
@@ -54,6 +55,7 @@ const ShippingSection = ({ address, setAddress, setTransferFee }) => {
         detailAddress: ''
       }))
       setWarsList(response)
+      setTransferFee(null)
     } catch (error) {
       console.log(error)
       toast.error('Xảy ra lỗi, vui lòng thử lại.')

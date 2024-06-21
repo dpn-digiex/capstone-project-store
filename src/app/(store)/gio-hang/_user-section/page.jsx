@@ -16,7 +16,7 @@ const UserInfoSection = ({ user }) => {
               name='customerGender'
               value='Nam'
               className='h-3.5 w-3.5 accent-slate-700'
-              defaultChecked={user.gender === 'Nam'}
+              defaultChecked={user.gender === 'Nam' || user.gender === 'Khác'}
             />
             <span>Anh</span>
           </label>

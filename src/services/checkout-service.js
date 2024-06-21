@@ -22,3 +22,15 @@ export const getOrderDetail = async (orderId) => {
     return null
   }
 }
+
+export const getOrderList = async () => {
+  try {
+    const response = await axiosInstance.get(`/order/list`)
+    const { status, message, data } = response
+    if (status !== 200) throw new Error(message)
+    return data
+  } catch (error) {
+    console.log(error)
+    return []
+  }
+}

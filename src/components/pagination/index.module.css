@@ -1,0 +1,30 @@
+.page-list {
+  @apply flex h-8 items-center rounded bg-white/20;
+}
+.page-arrow {
+  @apply h-full cursor-pointer select-none px-2;
+  @apply flex items-center justify-center active:scale-[0.875];
+}
+.page-arrow:first-of-type {
+  @apply border-r-[0.0625rem] border-slate-500/25;
+}
+.page-arrow:last-of-type {
+  @apply border-l-[0.0625rem] border-slate-500/25;
+}
+.page-item {
+  @apply flex aspect-square h-full select-none items-center justify-center px-2;
+  transition: scale 50ms ease-in-out;
+}
+.page-item + .page-item {
+  @apply border-l-[0.0625rem] border-slate-500/25;
+}
+
+.page-item:active {
+  scale: 0.875;
+}
+
+.page-item.page-active {
+  @apply bg-slate-600;
+  border: none;
+  font-weight: bold;
+}

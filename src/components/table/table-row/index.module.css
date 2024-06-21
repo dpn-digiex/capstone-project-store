@@ -1,0 +1,11 @@
+.table-row:nth-child(even) {
+  @apply bg-slate-400;
+}
+
+.table-row:nth-child(odd) {
+  @apply bg-slate-400/25;
+}
+
+.select-cell {
+  @apply h-[1px] overflow-hidden text-nowrap p-2;
+}

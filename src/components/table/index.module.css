@@ -1,0 +1,22 @@
+.table-container {
+  @apply isolate flex h-full flex-col gap-y-1 overflow-hidden;
+}
+.table-wrapper {
+  @apply max-h-[75vh] overflow-auto;
+}
+.table {
+  @apply sticky -top-1 -mt-1 w-full border-separate border-spacing-y-[0.25rem] border-spacing-x-[1px];
+  @apply text-[0.75rem];
+}
+.table-header {
+  @apply sticky top-0 z-10;
+}
+.table-header-row {
+  @apply bg-slate-600;
+}
+.table-header-cell {
+  @apply p-2;
+}
+.table-select-columns {
+  box-shadow: none !important;
+}

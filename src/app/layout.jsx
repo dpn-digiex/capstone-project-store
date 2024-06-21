@@ -10,7 +10,9 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 const inter = Inter({ subsets: ['latin'] })
-
+export const metadata = {
+  title: 'PTT Shop'
+}
 export default function RootLayout({ children }) {
   return (
     <html lang='en'>

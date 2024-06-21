@@ -22,10 +22,10 @@ const UserInformation = () => {
       const formData = new FormData(e.target)
       const payload = Object.fromEntries(formData)
       const response = await updateProfile(payload)
-      if (response) {
-        setRefreshProfile((prev) => prev + 1)
-        toast.success('Cập nhật thông tin thành công.')
-      }
+      if (!response) throw new Error('Thất bại')
+
+      setRefreshProfile((prev) => prev + 1)
+      toast.success('Cập nhật thông tin thành công.')
     } catch (error) {
       console.log(error)
       toast.error('Lưu thông tin thất bại.')

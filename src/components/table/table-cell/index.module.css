@@ -1,0 +1,24 @@
+.table-cell {
+  @apply h-[1px] overflow-hidden text-nowrap p-2;
+}
+.table-cell:has(.cell-fit) {
+  @apply w-0 min-w-fit;
+}
+.table-cell .auto-complete-data-block {
+  min-width: unset;
+}
+.table-cell .auto-complete-input-group {
+  @apply px-2 py-[0.1875rem];
+}
+.table-body-cell.cell-active {
+  @apply bg-emerald-400/60;
+}
+.table-body-cell.cell-inactive {
+  @apply bg-red-400/60;
+}
+.table-body-cell.cell-none {
+  @apply bg-slate-400/60;
+}
+.cell-content {
+  @apply flex items-center flex-nowrap gap-1 h-full;
+}

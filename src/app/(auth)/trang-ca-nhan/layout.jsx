@@ -26,7 +26,7 @@ const ProfileLayout = ({ children }) => {
           <div>
             <ProfileSidebar />
           </div>
-          <div>
+          <div className='overflow-hidden'>
             <div className={styles.mainSection}>{children}</div>
           </div>
         </div>

@@ -4,5 +4,5 @@
 .mainSection {
   padding: 1rem;
   background-color: inherit;
-  @apply bg-slate-500 rounded-md;
+  @apply bg-slate-500 rounded-md w-full overflow-hidden;
 }

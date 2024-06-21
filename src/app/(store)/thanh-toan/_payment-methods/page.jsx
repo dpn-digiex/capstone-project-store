@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
 
 const PAYMENT_METHODS = [
-  {
-    value: 'cod',
-    label: 'Thanh toán tiền mặt khi nhận hàng'
-  },
+  // {
+  //   value: 'cod',
+  //   label: 'Thanh toán tiền mặt khi nhận hàng'
+  // },
   {
     value: 'transfer',
     label: 'Chuyển khoản ngân hàng'
   }
 ]
 const PaymentMethods = () => {
-  const [selectedMethod, setSelectedMethod] = useState({ value: 'cod', label: 'Thanh toán tiền mặt khi nhận hàng' })
+  const [selectedMethod, setSelectedMethod] = useState({ value: 'transfer', label: 'Chuyển khoản ngân hàng' })
   return (
     <div className='text-sm flex flex-col gap-3'>
       <span className='font-bold'>Chọn hình thức thanh toán:</span>

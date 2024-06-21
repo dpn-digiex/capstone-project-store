@@ -56,7 +56,7 @@ const ShippingSection = ({ address, setAddress, setTransferFee }) => {
   const handleSelectWard = async (ward) => {
     try {
       setAddress((prev) => ({ ...prev, wardId: ward.WardCode, wardName: ward.WardName, detailAddress: '' }))
-      const response = await getTransferFee({ to_district_id: address.districtId })
+      const response = await getTransferFee({ to_district_id: address.districtId, to_ward_code: ward.WardCode })
       setTransferFee(response.total)
     } catch (error) {
       console.log(error)
@@ -68,6 +68,8 @@ const ShippingSection = ({ address, setAddress, setTransferFee }) => {
   return (
     <div className='px-6 py-3 bg-[#515965] shadow-lg mt-1 text-xs'>
       <h3 className='text-sm font-bold'>Hình thức nhận hàng</h3>
+      <h4 className='text-[11px] text-[#ccc]'>* Đơn vị vận chuyển (Giao Hàng Nhanh)</h4>
+
       <div className='grid gap-3 mt-2'>
         <div className='flex items-center gap-6'>
           <label htmlFor='shipping-in-place' className='flex items-center gap-1 cursor-pointer'>

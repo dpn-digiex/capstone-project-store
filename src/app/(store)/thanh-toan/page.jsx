@@ -39,7 +39,7 @@ const CheckoutPage = () => {
       </div>
       <div className='bg-[#515965] px-6 py-3 rounded-b-lg flex flex-col gap-3'>
         <p className='text-sm'>
-          Cảm ơn {getGenderTitle(response.customerGender)} <strong>{response.customerName}</strong> đã cho P2T cơ hội
+          Cảm ơn {getGenderTitle(response.customerGender)} <strong>{response.customerName}</strong> đã cho PTT cơ hội
           được phục vụ.
         </p>
         <div className='bg-slate-500 p-3 rounded-lg'>

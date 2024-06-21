@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { BANNERS_RAW } from '@/app/api/banner/route'
 import Banner from '@/components/banner'
 import FlashSale from '@/components/flash-sale'
 import { getProductHomePageService } from '@/services/product-service'
@@ -12,8 +13,7 @@ import SoundSection from './_product-section/sound/page'
 import WatchSection from './_product-section/watch/page'
 
 const HomePage = async () => {
-  const bannerResponse = await fetch('http://localhost:3000/api/banner')
-  const banners = await bannerResponse.json()
+  const banners = BANNERS_RAW
 
   const productList = await getProductHomePageService()
   return (

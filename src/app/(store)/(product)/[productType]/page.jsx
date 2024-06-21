@@ -1,5 +1,6 @@
 import { FaApple } from 'react-icons/fa'
 
+import { BANNERS_RAW } from '@/app/api/banner/route'
 import Banner from '@/components/banner'
 import Card from '@/components/card'
 import FilterProduct from '@/components/filter-product'
@@ -16,8 +17,7 @@ const MAPPING_TITLE = {
 }
 
 const ProductTypePage = async ({ isDefaultPage = false, params, searchParams }) => {
-  const bannerResponse = await fetch('http://localhost:3000/api/banner')
-  const banners = await bannerResponse.json()
+  const banners = BANNERS_RAW
 
   const categoryList = await getCategoryListService()
   const activeCategory = categoryList.find((category) => category.slug === params.productType)

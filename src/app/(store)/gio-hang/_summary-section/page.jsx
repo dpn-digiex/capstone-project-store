@@ -12,11 +12,11 @@ const SummarySection = ({ transferFee = 0, total = 0, isSubmitable = false }) =>
       </div>
       <div className='flex items-center justify-between py-2 border-b-[0.0625rem] border-slate-500'>
         <span className='font-bold'>Tổng tiền:</span>
-        <span className='font-bold text-red-400'>{formatCurrency(total)}</span>
+        <span className='font-bold text-red-400'>{formatCurrency(total + transferFee)}</span>
       </div>
       <div className='flex items-center justify-between py-2'>
         <span className=''>Điểm tích lũy quà tặng VIP:</span>
-        <span className=''>{total / 1000} điểm</span>
+        <span className=''>{(total + transferFee) / 1000} điểm</span>
       </div>
       <button
         className={clsx(

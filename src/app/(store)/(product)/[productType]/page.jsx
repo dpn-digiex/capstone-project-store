@@ -7,6 +7,8 @@ import FilterProduct from '@/components/filter-product'
 import { getCategoryListService } from '@/services/category-service'
 import { getProductListByCategoryService } from '@/services/product-service'
 
+import BtnViewMore from './_components/btnViewMore'
+
 const MAPPING_TITLE = {
   ['iphone']: 'iPhone',
   ['ipad']: 'iPad',
@@ -22,12 +24,13 @@ const ProductTypePage = async ({ isDefaultPage = false, params, searchParams }) 
   const categoryList = await getCategoryListService()
   const activeCategory = categoryList.find((category) => category.slug === params.productType)
   const response = await getProductListByCategoryService({
-    page_number: 1,
-    page_size: 20,
     category_id: activeCategory?._id,
-    sub_category_id: searchParams.sub
+    sub_category_id: searchParams.sub,
+    page_number: 1,
+    page_size: searchParams.pageSize ?? 8
   })
   const productList = response.products
+  const pagination = response.pagination // currentPage, pageSize, totalProducts, totalPages
 
   return (
     <div className='container'>
@@ -64,6 +67,14 @@ const ProductTypePage = async ({ isDefaultPage = false, params, searchParams }) 
           ))}
         </div>
       )}
+      {pagination.currentPage * pagination.pageSize < pagination.totalProducts ? (
+        <BtnViewMore
+          count={pagination.totalProducts - pagination.pageSize * pagination.currentPage}
+          pageSize={pagination.pageSize}
+          currentPage={pagination.currentPage}
+          loadSize={8}
+        />
+      ) : null}
     </div>
   )
 }

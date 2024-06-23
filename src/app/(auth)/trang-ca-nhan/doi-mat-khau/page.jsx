@@ -46,6 +46,9 @@ const ChangePassword = () => {
       }
       validate
       compare={{ password: newPassword }}
+      style={{
+        '--error-message-clr': '#ff6e7d'
+      }}
     >
       <InputGroup
         label='Mật khẩu cũ'

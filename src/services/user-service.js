@@ -32,11 +32,13 @@ export const login = async ({ username, password }) => {
 
 export const logout = async () => {
   try {
-    localStorage.removeItem('accessToken')
-    localStorage.removeItem('user')
-    window.location.href = '/dang-nhap'
-    await axiosInstance.post('/user/logout')
+    localStorage.clear()
     delete axiosInstance.defaults.headers.common['x-access-token']
+    await axiosInstance.post('/user/logout').catch((error) => {
+      console.log('Logout API call failed: ', error)
+    })
+
+    window.location.href = '/dang-nhap'
     return true
   } catch (error) {
     console.log(error)
@@ -49,7 +51,8 @@ export const refreshToken = async () => {
     const response = await axiosInstance.post('/user/refresh-token')
     const { status, data } = response
     if (status !== 200) {
-      await logout()
+      localStorage.clear()
+      delete axiosInstance.defaults.headers.common['x-access-token']
       window.location.href = '/dang-nhap'
       return false
     }
@@ -57,8 +60,9 @@ export const refreshToken = async () => {
     axiosInstance.defaults.headers.common['x-access-token'] = data.accessToken
     return true
   } catch (error) {
-    console.log(error)
-    await logout()
+    console.log({ error })
+    localStorage.clear()
+    delete axiosInstance.defaults.headers.common['x-access-token']
     window.location.href = '/dang-nhap'
     return false
   }

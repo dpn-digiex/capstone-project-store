@@ -1,5 +1,6 @@
 'use client'
 import React, { useEffect } from 'react'
+import toast from 'react-hot-toast'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -9,6 +10,7 @@ import { LOCAL_STORE_ACCESS_TOKEN, LOCAL_STORE_USER, ROUTES_APP } from '@/consta
 import useFetch from '@/hooks/useFetch'
 import { useAppStore } from '@/libs/zustand'
 import { getOrderDetail } from '@/services/checkout-service'
+import { getPaymentLink } from '@/services/payment-service'
 import { concatString, formatCurrency, getGenderTitle } from '@/utils'
 
 import PaymentMethods from './_payment-methods/page'
@@ -16,6 +18,7 @@ import PaymentMethods from './_payment-methods/page'
 const CheckoutPage = () => {
   const searchParams = useSearchParams()
   const orderId = searchParams.get('id')
+  const isPaid = searchParams.get('isPaid')
   const { isLoading, response } = useFetch(() => getOrderDetail(orderId))
   const accessToken = useAppStore((state) => state.accessToken)
   const router = useRouter()
@@ -27,8 +30,39 @@ const CheckoutPage = () => {
       router.push(ROUTES_APP.SIGN_IN)
     }
   }, [accessToken, router])
-  const handleSubmit = (e) => {
+
+  useEffect(() => {
+    if (isPaid) {
+      toast.success('Thanh toán thành công, đơn hàng của bạn sẽ được vận chuyển trong thời gian sớm nhất')
+    }
+  }, [isPaid])
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    const randomNumber = Math.floor(Math.random() * 9999999)
+
+    const items = response.items
+    const totalFee =
+      items?.reduce((total, product) => total + product.quantity * product.price * (1 - product.discount / 100), 0) +
+      (response.delivery?.transferFee ?? 0)
+    const request = {
+      orderId: orderId,
+      orderCode: randomNumber,
+      amount: 2000 || totalFee,
+      items: items.map((item) => ({
+        name: item.productName,
+        quantity: item.quantity,
+        price: item.price
+      }))
+      // cancelUrl: 'http://localhost:3000/thanh-toan?id=667ab7a1b556c055f77c1333',
+      // returnUrl: 'http://localhost:3000/trang-ca-nhan/don-dat-hang'
+    }
+    const res = await getPaymentLink(request)
+    const checkoutUrl = res?.checkoutUrl
+    if (checkoutUrl) window.location.href = checkoutUrl
+    else {
+      toast.error('Không thể tạo link thanh toán, vui lòng thử lại')
+    }
   }
 
   if (isLoading) return <Loading />
@@ -94,9 +128,12 @@ const CheckoutPage = () => {
           </ul>
         </div>
         {response.status === 'paid' ? (
-          <div className='text-md p-3 border border-dashed border-emerald-400 rounded-md bg-emerald-400/15'>
-            <p className='text-center text-emerald-300'>Đơn hàng đã được thanh toán</p>
-          </div>
+          <>
+            <div className='text-md p-3 border border-dashed border-emerald-400 rounded-md bg-emerald-400/15'>
+              <p className='text-center text-emerald-300'>Đơn hàng đã được thanh toán</p>
+            </div>
+            <div className=''>Bộ phận quản lý đang xử lý đơn hàng của bạn</div>
+          </>
         ) : (
           <div className='text-md p-3 border border-dashed border-red-400 rounded-md bg-red-400/15'>
             <p className='text-center text-red-300'>Đơn hàng chưa được thanh toán</p>

@@ -22,6 +22,16 @@ axiosInstance.interceptors.response.use(
     }
   },
   async (error) => {
+    const actionLogout = error.response?.data?.actionLogout
+    if (actionLogout) {
+      if (typeof window !== 'undefined') {
+        window.location.href = '/dang-nhap'
+        delete axiosInstance.defaults.headers.common['x-access-token']
+        localStorage.clear()
+      }
+      return
+    }
+
     const originalRequest = error.config
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true
@@ -34,6 +44,7 @@ axiosInstance.interceptors.response.use(
           }
         }
       } catch (err) {
+        console.log('Error refreshing token: ', err)
         return Promise.reject(err)
       }
     }

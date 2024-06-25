@@ -48,7 +48,7 @@ const CheckoutPage = () => {
     const request = {
       orderId: orderId,
       orderCode: randomNumber,
-      amount: 2000 || totalFee,
+      amount: totalFee,
       items: items.map((item) => ({
         name: item.productName,
         quantity: item.quantity,

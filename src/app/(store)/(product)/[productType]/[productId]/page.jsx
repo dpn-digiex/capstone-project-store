@@ -86,7 +86,7 @@ const ProductDetailPage = async ({ params }) => {
           </div>
         </div>
       </section>
-      <Suggestions productId={product._id} productData={product} />
+      {params.productType === 'mac' ? <Suggestions productId={product._id} productData={product} /> : null}
       <Reviews productId={product._id} productData={product} />
       <Comments productId={product._id} productData={product} />
     </div>
